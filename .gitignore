@@ -1,0 +1,44 @@
+# Archivos auxiliares de LaTeX
+*.aux
+*.bbl
+*.blg
+*.brf
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+
+# Archivos generados por compiladores
+*.pdf
+*.dvi
+*.ps
+
+# Otros archivos innecesarios
+*.nav
+*.snm
+*.vrb
+
+# Configuración de editores
+.vscode/
+*.swp
+*.bak
+*~
+out/
+output/
+
+# Archivos de respaldo
+*.bak0
