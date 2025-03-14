@@ -1,5 +1,192 @@
 \documentclass{beamer}
 
+% Tema y colores
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{tikz}                % Paquete para gráficos con TikZ
+\usetikzlibrary{arrows,positioning}
+
+% Información del título
+\title{Machine Learning Final Project}
+\subtitle{Custom Implementation of the Apriori Algorithm}
+\author{
+\begin{tabular}{c} 
+Fernanda Flores \\ 
+Kevin Arciniegas \\ 
+Giussepe Marrero
+\end{tabular}
+}
+\institute{4Geeks Academy}
+\date{\today}
+
+\begin{document}
+
+% --- Cover Slide ---
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% --- Table of Contents ---
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% --- Technical Considerations and Challenges ---
+\section{Technical Considerations and \texorpdfstring{$O(2^n)$}{O(2^n)}}
+
+\begin{frame}{1.Technical Considerations and Challenges}
+    \begin{itemize}
+        \item Mining association rules in large-scale transactional datasets incurs exponential complexity (\(O(2^n)\)).
+        \item The standard Apriori algorithm struggles with high-dimensional data due to combinatorial explosion.
+        \item Pre-filtering popular products helps reduce the candidate space, theoretically lowering the complexity to \(O(2^{n-3})\) (i.e., reducing cost by a factor of 8).
+    \end{itemize}
+\end{frame}
+
+% --- Cost Complexity Reduction Illustration ---
+\section{Cost Complexity Reduction}
+
+\begin{frame}{2.Cost Complexity Reduction}
+    \centering
+    \begin{tikzpicture}[node distance=5cm, auto, >=latex']
+        % Nodo original: Complejidad sin optimización
+        \node[draw, rectangle, rounded corners, text width=4cm, align=center, fill=red!10] (original) {\(O(2^n)\)\\Without Optimization};
+        % Nodo optimizado: Complejidad reducida
+        \node[draw, rectangle, rounded corners, text width=4cm, align=center, fill=green!10, right of=original] (optimized) {\(O(2^{n-3})\)\\\(=\frac{O(2^n)}{8}\)};
+        % Flecha que indica la reducción
+        \draw[->, very thick] (original) -- node[midway, above=8pt]{\small Reduction Factor 1/8} (optimized);
+    \end{tikzpicture}
+\end{frame}
+    
+
+% --- Objectives ---
+
+\section{Objectives}
+
+\begin{frame}{3.Objectives}
+    \textbf{General Objective:}
+    \begin{itemize}
+        \item Develop a functional Apriori algorithm capable of extracting frequent itemsets and generating association rules from transactional data.
+    \end{itemize}
+
+    \textbf{Specific Objectives:}
+    \begin{itemize}
+        \item Implement the modular stages of the Apriori algorithm: candidate generation, pruning, and support calculation.
+        \item Address challenges such as data imbalance and ensure compatibility with large-scale datasets.
+        \item Evaluate performance metrics such as execution time and memory usage under different dataset conditions.
+        \item Document the technical limitations and computational trade-offs encountered during development.
+    \end{itemize}
+\end{frame}
+
+% --- Description and Analysis of the Dataset ---
+\section{Description and Analysis of the Dataset}
+
+\section{Dataset Origin}
+
+\begin{frame}{4.Dataset Origin}
+    \begin{itemize}
+        \item Relational dataset of Instacart orders, consisting of:
+        \begin{itemize}
+            \item Over 3 million orders from 200,000+ users.
+            \item Each user has 4 to 100 orders.
+        \end{itemize}
+        \item Dataset is anonymized and publicly available.
+        \item \textbf{Source:} \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Dataset Characteristics}
+    \begin{itemize}
+        \item Focused on two key files for this analysis:
+        \begin{itemize}
+            \item \textbf{market\_basket\_dataset.csv}: Contains aggregated transactional data for market basket analysis.
+            \item \textbf{order\_products\_train.csv}: Includes product IDs and details of purchased items in the training set.
+        \end{itemize}
+        \item The dataset structure facilitates detailed exploration of customer purchase behaviors and product associations.
+    \end{itemize}
+\end{frame}
+
+
+% --- Algorithm Handling: Scope and Limitations ---
+\section{Algorithm Handling: Scope and Limitations}
+
+\begin{frame}{5.Algorithm Handling: Scope and Limitations}
+    \begin{itemize}
+        \item The project leverages a modular approach to implementing the Apriori algorithm, focusing on candidate generation, pruning, and support calculation.
+        \item While the algorithm builds upon existing foundations, the emphasis is on adapting it to handle scalability and efficiency challenges.
+        \item Modular functions (e.g., pruning based on the Apriori principle) allow for independent testing and debugging of each phase.
+        \item Limitations arise primarily from data sparsity, the computational cost of frequent itemset generation, and the efficiency of handling large transaction datasets.
+        \item Future optimization could involve incorporating parallelization techniques or integrating more advanced pruning strategies.
+    \end{itemize}
+\end{frame}
+
+% --- Project Development ---
+\section{Project Development}
+
+\begin{frame}{5.Project Development}
+    \textbf{Implementation of the Algorithm:}
+    \begin{itemize}
+        \item Step-by-step development of the Apriori algorithm.
+        \item Detailed explanation of candidate reduction mechanisms.
+    \end{itemize}
+    \vspace{0.5em}
+    \textbf{Performance Measurement and Benchmarking:}
+    \begin{itemize}
+        \item Define performance metrics (e.g., execution time, memory usage).
+        \item Comparative analysis against brute-force or alternative approaches.
+        \item Presentation of experimental results.
+    \end{itemize}
+\end{frame}
+
+% --- Metrics ---
+\section{Metrics}
+
+\begin{frame}{6.Metrics (Undersampling) for Evaluation}
+    \begin{itemize}
+        \item Overview of performance metrics used for evaluation.
+        \item Explanation of undersampling techniques employed to balance the dataset.
+        \item Discussion on how these metrics drive insights for model optimization.
+    \end{itemize}
+\end{frame}
+
+% --- Conclusions and Business Recommendations ---
+\section{7.Conclusions and Business Recommendations}
+
+\begin{frame}{Conclusions and Business Recommendations}
+    \begin{itemize}
+        \item Summarize key findings and performance analysis.
+        \item Discuss the scalability and efficiency of the optimized Apriori implementation.
+        \item Provide business recommendations based on the project results.
+        \item Suggest potential avenues for future work and improvements.
+    \end{itemize}
+\end{frame}
+
+% --- References ---
+\section{References}
+
+\begin{frame}{8.References}
+    \begin{thebibliography}{9}
+        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami, ``Fast algorithms for mining association rules,'' in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 1994, pp. 487--499.
+        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, Kaggle Competition, [Online]. Available: \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}. Accessed: Mar. 2025.
+        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \textit{Data Mining: Concepts and Techniques}, 2nd ed., Morgan Kaufmann, 2006.
+    \end{thebibliography}
+\end{frame}
+
+\end{document}
+
+
+\documentclass{beamer}
+
 % Theme and color settings
 \usetheme{Madrid}
 \usecolortheme{whale}
