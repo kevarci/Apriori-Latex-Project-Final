@@ -39,8 +39,32 @@ Para configurar el entorno de desarrollo:
 - Ordenamiento de itemsets por soporte en orden descendente
 - Preparación de estructura de datos para generación de itemsets de mayor tamaño
 
+### Generación de Itemsets de Mayor Tamaño
+- Implementación completa de la generación de k-itemsets (k ≥ 2)
+- Algoritmo de poda basado en la propiedad de anti-monotonía del soporte
+- Optimización de memoria mediante técnicas de hash para candidatos
+- Paralelización del proceso de conteo para mejorar rendimiento en datasets grandes
+
+### Generación de Reglas de Asociación
+- Implementación del algoritmo para extraer reglas a partir de itemsets frecuentes
+- Cálculo de métricas de interés: soporte, confianza, lift y conviction
+- Filtrado de reglas según umbrales configurables de confianza mínima
+- Ordenamiento de reglas por relevancia según múltiples criterios
+
+### Integración con LaTeX
+- Generación automática de documentos LaTeX con resultados del análisis
+- Creación de tablas formateadas con las reglas más relevantes
+- Inclusión de gráficos de visualización de métricas
+- Exportación a PDF mediante integración con compilador LaTeX
+
+### Interfaz de Usuario
+- Desarrollo de interfaz gráfica para configuración de parámetros
+- Visualización interactiva de resultados y métricas
+- Opciones de filtrado y ordenamiento de reglas en tiempo real
+- Exportación de resultados en múltiples formatos (CSV, Excel, PDF)
+
 ### Próximos Pasos
-- Generación de itemsets de mayor tamaño (2-itemsets, 3-itemsets, etc.)
-- Implementación de reglas de asociación basadas en los itemsets frecuentes
-- Evaluación de reglas mediante métricas como soporte, confianza y lift
-- Visualización de resultados y patrones descubiertos
+- Implementación de algoritmos de visualización avanzada de reglas
+- Integración con técnicas de clustering para agrupamiento de reglas similares
+- Desarrollo de módulo de interpretación automática de reglas
+- Optimización adicional para conjuntos de datos ultra grandes
