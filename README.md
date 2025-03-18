@@ -63,6 +63,16 @@ Para configurar el entorno de desarrollo:
 - Opciones de filtrado y ordenamiento de reglas en tiempo real
 - Exportación de resultados en múltiples formatos (CSV, Excel, PDF)
 
+### Últimas Optimizaciones del Algoritmo Apriori
+- Mejora significativa en la generación de candidatos para reducir uso de memoria
+- Implementación de cálculo de soporte optimizado mediante operaciones de conjuntos
+- Incorporación de procesamiento por lotes para manejar grandes volúmenes de datos
+- Precomputación de conjuntos de transacciones para acelerar verificación de candidatos
+- Filtrado inteligente de transacciones por longitud mínima para evitar procesamiento innecesario
+- Adición de indicadores de progreso durante el procesamiento de grandes conjuntos de datos
+- Optimización de la fase de conteo mediante el uso eficiente de operaciones de subconjuntos
+- Mejora en la gestión de memoria para permitir umbrales de soporte más bajos
+
 ### Próximos Pasos
 - Implementación de algoritmos de visualización avanzada de reglas
 - Integración con técnicas de clustering para agrupamiento de reglas similares
