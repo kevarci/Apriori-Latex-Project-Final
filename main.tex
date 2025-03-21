@@ -1,11 +1,9 @@
-<<<<<<< HEAD
 \documentclass{beamer}
-
-% Theme and color settings
+% --- Theme and Color Settings ---
 \usetheme{Madrid}
 \usecolortheme{whale}
 
-% Packages 
+% --- Required Packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
@@ -15,235 +13,13 @@
 \usepackage{fancyhdr}
 \usepackage{booktabs}
 \usepackage{url}
-
-% Información del título
-\title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm}
-\author{
-\begin{tabular}{c} 
-Fernanda Flores \\ 
-Kevin Arciniegas \\ 
-Giussepe Marrero
-\end{tabular}
-}
-\institute{4Geeks Academy}
-\date{\today}
-
-\begin{document}
-
-% --- Cover Slide ---
-\begin{frame}
-    \titlepage
-\end{frame}
-
-% --- Table of Contents ---
-\begin{frame}{Outline}
-    \tableofcontents
-\end{frame}
-
-% --- 1. Technical Framework Theory ---
-\section{Technical Framework Theory}
-
-\begin{frame}{1. Technical Framework Theory}
-    \begin{itemize}
-        \item \textbf{Association Rule Mining and Apriori Algorithm:} Identifies \\
-              patterns in datasets; Apriori discovers frequent itemsets to extract meaningful rules.
-        \item \textbf{Apriori Algorithm Functionality:} Uses a bottom-up approach, \\
-              starting with individual items and progressively combining them into larger\\
-              itemsets, filtering out infrequent ones based on a minimum support threshold.
-        \item \textbf{Computational Challenges:} Faces combinatorial explosion and high \\
-              resource demands when processing large datasets.
-    \end{itemize}
-\end{frame}
-
-% --- 2. Problem Statement ---
-\section{Problem Statement}
-
-\begin{frame}{2. Problem Statement}
-    \begin{itemize}
-        \item There is no efficient method to automatically discover high-quality \\
-              association rules in large-scale datasets.
-        \item Traditional brute-force approaches become unfeasible due to the combinatorial \\
-              explosion of candidate itemsets.
-        \item Existing algorithms, including Apriori, struggle with processing high-dimensional\\
-              data efficiently.
-        \item Optimizing the mining process by pre-filtering popular products and segmenting \\
-              orders temporally may improve efficiency and yield actionable insights.
-    \end{itemize}
-\end{frame}
-
-% --- 3. Project Justification ---
-\section{Project Justification}
-
-\begin{frame}{3. Project Justification}
-    \begin{itemize}
-        \item Current algorithms struggle with combinatorial problems and high resource \\
-              consumption.
-        \item Implementing Apriori from scratch helps understand its fundamental principles.
-        \item Pre-filtering popular products and segmenting orders can improve efficiency \\
-              in rule extraction.
-        \item The custom approach aims to reduce computational complexity and execution time.
-    \end{itemize}
-\end{frame}
-
-% --- 4. Objectives ---
-\section{Objectives}
-
-\begin{frame}{4. Objectives}
-    \textbf{General Objective:}
-    \begin{itemize}
-        \item Develop an optimized implementation of the Apriori algorithm to efficiently\\
-              extract actionable association rules and insights from large-scale datasets.
-    \end{itemize}
-
-    \textbf{Specific Objectives:}
-    \begin{itemize}
-        \item Pre-filter popular products to reduce redundant candidate itemsets and\\
-              computational overhead.
-        \item Segment transactions based on temporal features (e.g., day of the week or hour) \\
-              to uncover context-specific patterns.
-        \item Evaluate algorithm performance on large datasets to identify scalability \\
-              bottlenecks and potential improvements.
-        \item Extract actionable insights into customer purchasing behavior to inform and \\
-              enhance future predictive models.
-    \end{itemize}
-\end{frame}
-
-% --- 5. Description and Analysis of the Dataset ---
-\section{Description and Analysis of the Dataset}
-
-\begin{frame}{5.1 Dataset Origin}
-    \begin{itemize}
-        \item This dataset is a relational set of files describing customers' grocery \\
-              orders over time.
-        \item It contains over 3 million orders from more than 200,000 Instacart users,\\ 
-              with each user having between 4 and 100 orders.
-        \item Orders include the sequence of purchased products, order day, hour of placement,\\
-              and the relative time between orders.
-        \item The dataset is anonymized. For additional details, please refer to the \\
-              accompanying blog post.
-        \item \textbf{Access the dataset at:} 
-        \\\url{https://www.kaggle.com/competitions/instacart-market-basket-analysis/data}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{5.2 Dataset Characteristics}
-    \begin{itemize}
-        \item The dataset is organized into several CSV files, each with unique IDs \\
-              and self-explanatory variable names:
-        \begin{itemize}
-            \item \textbf{aisles.csv}: Lists aisle IDs and names (e.g., "prepared soups salads").
-            \item \textbf{departments.csv}: Contains department IDs and names \\
-                  (e.g., "frozen", "bakery").
-            \item \textbf{order\_products\_\_prior.csv}: Details previous orders, including\\
-                  product IDs, add-to-cart order, and a 'reordered' flag.
-            \item \textbf{orders.csv}: Identifies order sets (prior, train, test) and provides\\
-                  temporal features like day of week and order hour.
-            \item \textbf{products.csv}: Lists product IDs, product names, and associated \\
-                  aisle and department IDs.
-        \end{itemize}
-        \item This organization enables detailed analysis of customer purchase behavior.
-    \end{itemize}
-\end{frame}
-
-% --- 6. Algorithm Handling: Scope and Limitations ---
-\section{Algorithm Handling: Scope and Limitations}
-
-\begin{frame}{6. Algorithm Handling: Scope and Limitations}
-    \begin{itemize}
-        \item Detailed explanation of the Apriori algorithm and its computational cost.
-        \item Implementation approach: building the algorithm from scratch.
-        \item Pre-filtering popular products and segmenting orders help reduce \\
-              redundant candidate itemsets.
-        \item Limitations include data size, performance constraints, and combinatorial\\
-              challenges.
-    \end{itemize}
-\end{frame}
-
-% --- 7. Project Development ---
-\section{Project Development}
-
-\begin{frame}{7. Project Development}
-    \textbf{Implementation of the Algorithm:}
-    \begin{itemize}
-        \item Step-by-step development of the Apriori algorithm.
-        \item Explanation of mechanisms chosen for feature extraction.
-    \end{itemize}
-    \vspace{0.5em}
-    \textbf{Performance Measurement and Benchmarking:}
-    \begin{itemize}
-        \item Define how performance is measured (execution time, memory usage, etc.).
-        \item Comparative analysis: benchmark against brute-force or alternative approaches.
-        \item Showcase experiments and results.
-    \end{itemize}
-\end{frame}
-
-% --- 8. Metrics ---
-\section{Metrics}
-
-\begin{frame}{8. Metrics (Undersampling) for Evaluation}
-    \begin{itemize}
-        \item Description of the performance metrics used for evaluation.
-        \item Explanation of undersampling techniques applied to balance the dataset.
-        \item How these metrics drive insights for model optimization.
-    \end{itemize}
-\end{frame}
-
-% --- 9. Conclusions and Business Recommendations ---
-\section{Conclusions and Business Recommendations}
-
-\begin{frame}{9. Conclusions and Business Recommendations}
-    \begin{itemize}
-        \item Summary of key findings and performance analysis.
-        \item Discussion on the scalability and efficiency of the custom Apriori implementation.
-        \item Business recommendations based on the project outcomes.
-        \item Potential avenues for future work and improvements.
-    \end{itemize}
-\end{frame}
-
-% --- 10. References ---
-\section{References}
-
-\begin{frame}{10. References}
-    \begin{thebibliography}{9}
-        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami,
-        \\ ``Fast algorithms for mining association rules,'' \\
-        in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 
-        \\ 1994, pp. 487--499.
-        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, \\
-        Kaggle Competition, [Online]. Available:\\
-         \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}.\\
-         Accessed: Mar. 2025.
-        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \\
-        \textit{Data Mining: Concepts and Techniques}, 2nd ed.,
-        \\Morgan Kaufmann, 2006.
-    \end{thebibliography}
-\end{frame}
-
-\end{document}
-=======
-\documentclass{beamer}
-
-% Tema y colores
-\usetheme{Madrid}
-\usecolortheme{whale}
-
-% Paquetes básicos
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{url}
-\usepackage{tikz}                % Paquete para gráficos con TikZ
+\usepackage{tikz}           % Package for diagrams and flowcharts
 \usetikzlibrary{arrows,positioning}
+\usepackage{media9}         % For adding sound and interactive graphics
 
-% Información del título
+% --- Title Information ---
 \title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm}
+\subtitle{Custom Implementation of the Apriori Algorithm in R}
 \author{
 \begin{tabular}{c} 
 Fernanda Flores \\ 
@@ -254,50 +30,49 @@ Giussepe Marrero
 \institute{4Geeks Academy}
 \date{\today}
 
+% --- Document Start ---
 \begin{document}
 
-% --- Cover Slide ---
+% --- Title Slide ---
 \begin{frame}
     \titlepage
+    % Sound "bip" for slide transitions (requires bip.mp3 in the working directory)
+    \includemedia[
+        label=bip,
+        width=0.5ex,
+        height=0.5ex,
+        activate=onclick,
+        transparent,
+        addresource=bip.mp3,
+        flashvars={
+           source=bip.mp3
+           &autoplay=true
+        }
+    ]{}{APlayer.swf}
 \end{frame}
 
 % --- Table of Contents ---
-\begin{frame}{Outline}
+\begin{frame}{Table of Contents}
     \tableofcontents
 \end{frame}
 
-% --- Technical Considerations and Challenges ---
-\section{Technical Considerations and \texorpdfstring{$O(2^n)$}{O(2^n)}}
+% --- Section: Technical Considerations and Challenges ---
+\section{Technical Considerations and Challenges}
 
-\begin{frame}{1.Technical Considerations and Challenges}
+\begin{frame}{Technical Considerations and Challenges}
     \begin{itemize}
-        \item Mining association rules in large-scale transactional datasets incurs exponential complexity (\(O(2^n)\)).
-        \item The standard Apriori algorithm struggles with high-dimensional data due to combinatorial explosion.
-        \item Pre-filtering popular products helps reduce the candidate space, theoretically lowering the complexity to \(O(2^{n-3})\) (i.e., reducing cost by a factor of 8).
+        \item The Apriori algorithm faces exponential complexity in mining association rules, with a worst-case computational cost of \(O(2^n)\), where \(n\) is the number of distinct items in the dataset.
+        \item This complexity arises from the need to generate and evaluate all possible subsets of items to identify frequent itemsets.
+        \item Optimizations such as pre-filtering infrequent items and applying the Apriori pruning principle can theoretically reduce computational costs, but the algorithm remains resource-intensive for large-scale datasets.
+        \item Challenges include managing memory usage and minimizing redundant computations during candidate generation and validation phases.
+        \item Future improvements could explore segmenting the dataset or implementing parallel processing to mitigate scalability bottlenecks.
     \end{itemize}
 \end{frame}
 
-% --- Cost Complexity Reduction Illustration ---
-\section{Cost Complexity Reduction}
-
-\begin{frame}{2.Cost Complexity Reduction}
-    \centering
-    \begin{tikzpicture}[node distance=5cm, auto, >=latex']
-        % Nodo original: Complejidad sin optimización
-        \node[draw, rectangle, rounded corners, text width=4cm, align=center, fill=red!10] (original) {\(O(2^n)\)\\Without Optimization};
-        % Nodo optimizado: Complejidad reducida
-        \node[draw, rectangle, rounded corners, text width=4cm, align=center, fill=green!10, right of=original] (optimized) {\(O(2^{n-3})\)\\\(=\frac{O(2^n)}{8}\)};
-        % Flecha que indica la reducción
-        \draw[->, very thick] (original) -- node[midway, above=8pt]{\small Reduction Factor 1/8} (optimized);
-    \end{tikzpicture}
-\end{frame}
-    
-
-% --- Objectives ---
-
+% --- Section: Objectives ---
 \section{Objectives}
 
-\begin{frame}{3.Objectives}
+\begin{frame}{Objectives}
     \textbf{General Objective:}
     \begin{itemize}
         \item Develop a functional Apriori algorithm capable of extracting frequent itemsets and generating association rules from transactional data.
@@ -312,39 +87,10 @@ Giussepe Marrero
     \end{itemize}
 \end{frame}
 
-% --- Description and Analysis of the Dataset ---
-\section{Description and Analysis of the Dataset}
-
-\section{Dataset Origin}
-
-\begin{frame}{4.Dataset Origin}
-    \begin{itemize}
-        \item Relational dataset of Instacart orders, consisting of:
-        \begin{itemize}
-            \item Over 3 million orders from 200,000+ users.
-            \item Each user has 4 to 100 orders.
-        \end{itemize}
-        \item Dataset is anonymized and publicly available.
-        \item \textbf{Source:} \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Dataset Characteristics}
-    \begin{itemize}
-        \item Focused on two key files for this analysis:
-        \begin{itemize}
-            \item \textbf{market\_basket\_dataset.csv}: Contains aggregated transactional data for market basket analysis.
-            \item \textbf{order\_products\_train.csv}: Includes product IDs and details of purchased items in the training set.
-        \end{itemize}
-        \item The dataset structure facilitates detailed exploration of customer purchase behaviors and product associations.
-    \end{itemize}
-\end{frame}
-
-
-% --- Algorithm Handling: Scope and Limitations ---
+% --- Section: Algorithm Handling: Scope and Limitations ---
 \section{Algorithm Handling: Scope and Limitations}
 
-\begin{frame}{5.Algorithm Handling: Scope and Limitations}
+\begin{frame}{Algorithm Handling: Scope and Limitations}
     \begin{itemize}
         \item The project leverages a modular approach to implementing the Apriori algorithm, focusing on candidate generation, pruning, and support calculation.
         \item While the algorithm builds upon existing foundations, the emphasis is on adapting it to handle scalability and efficiency challenges.
@@ -354,281 +100,138 @@ Giussepe Marrero
     \end{itemize}
 \end{frame}
 
-% --- Project Development ---
-\section{Project Development}
+% --- Section: Data Loading and Preprocessing ---
+\section{Data Loading and Preprocessing}
 
-\begin{frame}{5.Project Development}
-    \textbf{Implementation of the Algorithm:}
+\begin{frame}{1. Data Loading and Preprocessing}
     \begin{itemize}
-        \item Step-by-step development of the Apriori algorithm.
-        \item Detailed explanation of candidate reduction mechanisms.
+        \item The data comes from the \textbf{Instacart Market Basket Analysis} dataset.
+        \item A sparse matrix is generated, optimizing memory usage and enabling processing of large-scale datasets.
+        \item Transactions are organized as lists grouping the products purchased.
     \end{itemize}
-    \vspace{0.5em}
-    \textbf{Performance Measurement and Benchmarking:}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{matrix_sparse.png} % Image representing the sparse matrix
+        \newline
+        Representation of the generated sparse matrix.
+    \end{center}
+\end{frame}
+
+% --- Section: Algorithm Implementation ---
+\section{Implementation of the Apriori Algorithm}
+
+\begin{frame}{2. Implementation of the Apriori Algorithm in R}
+    \textbf{Main Steps:}
+    \begin{enumerate}
+        \item Identify \textbf{frequent itemsets} using a minimum support threshold.
+        \item Generate association rules such as:
+        
+
+\[ \{Product\ A, Product\ B\} \implies \{Product\ C\} \]
+
+
+        \item Optimize computations by leveraging the \textbf{arules} package in R.
+    \end{enumerate}
+
+    \vspace{1em}
+    \textbf{Optimizations:}
     \begin{itemize}
-        \item Define performance metrics (e.g., execution time, memory usage).
-        \item Comparative analysis against brute-force or alternative approaches.
-        \item Presentation of experimental results.
-    \end{itemize}
-\end{frame}
-
-% --- Metrics ---
-\section{Metrics}
-
-\begin{frame}{6.Metrics (Undersampling) for Evaluation}
-    \begin{itemize}
-        \item Overview of performance metrics used for evaluation.
-        \item Explanation of undersampling techniques employed to balance the dataset.
-        \item Discussion on how these metrics drive insights for model optimization.
-    \end{itemize}
-\end{frame}
-
-% --- Conclusions and Business Recommendations ---
-\section{7.Conclusions and Business Recommendations}
-
-\begin{frame}{Conclusions and Business Recommendations}
-    \begin{itemize}
-        \item Summarize key findings and performance analysis.
-        \item Discuss the scalability and efficiency of the optimized Apriori implementation.
-        \item Provide business recommendations based on the project results.
-        \item Suggest potential avenues for future work and improvements.
-    \end{itemize}
-\end{frame}
-
-% --- References ---
-\section{References}
-
-\begin{frame}{8.References}
-    \begin{thebibliography}{9}
-        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami, ``Fast algorithms for mining association rules,'' in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 1994, pp. 487--499.
-        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, Kaggle Competition, [Online]. Available: \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}. Accessed: Mar. 2025.
-        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \textit{Data Mining: Concepts and Techniques}, 2nd ed., Morgan Kaufmann, 2006.
-    \end{thebibliography}
-\end{frame}
-
-\end{document}
-
-
-\documentclass{beamer}
-
-% Theme and color settings
-\usetheme{Madrid}
-\usecolortheme{whale}
-
-% Packages 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{url}
-
-% Información del título
-\title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm}
-\author{
-\begin{tabular}{c} 
-Fernanda Flores \\ 
-Kevin Arciniegas \\ 
-Giussepe Marrero
-\end{tabular}
-}
-\institute{4Geeks Academy}
-\date{\today}
-
-\begin{document}
-
-% --- Cover Slide ---
-\begin{frame}
-    \titlepage
-\end{frame}
-
-% --- Table of Contents ---
-\begin{frame}{Outline}
-    \tableofcontents
-\end{frame}
-
-% --- 1. Technical Framework Theory ---
-\section{Technical Framework Theory}
-
-\begin{frame}{1. Technical Framework Theory}
-    \begin{itemize}
-        \item \textbf{Association Rule Mining and Apriori Algorithm:} Identifies \\
-              patterns in datasets; Apriori discovers frequent itemsets to extract meaningful rules.
-        \item \textbf{Apriori Algorithm Functionality:} Uses a bottom-up approach, \\
-              starting with individual items and progressively combining them into larger\\
-              itemsets, filtering out infrequent ones based on a minimum support threshold.
-        \item \textbf{Computational Challenges:} Faces combinatorial explosion and high \\
-              resource demands when processing large datasets.
+        \item Used transaction lists instead of unstructured datasets for better representation.
+        \item Introduced partial matching to improve flexibility in generating recommendations.
     \end{itemize}
 \end{frame}
 
-% --- 2. Problem Statement ---
-\section{Problem Statement}
+% --- Section: Key Metrics ---
+\section{Key Metrics}
 
-\begin{frame}{2. Problem Statement}
+% --- Support ---
+\begin{frame}{3.1 Key Metric: Support}
+    \textbf{Support} \\
     \begin{itemize}
-        \item There is no efficient method to automatically discover high-quality \\
-              association rules in large-scale datasets.
-        \item Traditional brute-force approaches become unfeasible due to the combinatorial \\
-              explosion of candidate itemsets.
-        \item Existing algorithms, including Apriori, struggle with processing high-dimensional\\
-              data efficiently.
-        \item Optimizing the mining process by pre-filtering popular products and segmenting \\
-              orders temporally may improve efficiency and yield actionable insights.
+        \item Measures how frequently an itemset appears in the dataset.
     \end{itemize}
+    \vspace{1em}
+    \textbf{Formula:}
+    
+
+\[
+    \text{Support}(X) = \frac{\text{Transactions with } X}{\text{Total Transactions}}
+    \]
+
+
 \end{frame}
 
-% --- 3. Project Justification ---
-\section{Project Justification}
-
-\begin{frame}{3. Project Justification}
+% --- Confidence ---
+\begin{frame}{3.2 Key Metric: Confidence}
+    \textbf{Confidence} \\
     \begin{itemize}
-        \item Current algorithms struggle with combinatorial problems and high resource \\
-              consumption.
-        \item Implementing Apriori from scratch helps understand its fundamental principles.
-        \item Pre-filtering popular products and segmenting orders can improve efficiency \\
-              in rule extraction.
-        \item The custom approach aims to reduce computational complexity and execution time.
+        \item Measures the likelihood that the consequent appears, given the antecedent.
     \end{itemize}
+    \vspace{1em}
+    \textbf{Formula:}
+    
+
+\[
+    \text{Confidence}(A \implies B) = \frac{\text{Support}(A \cup B)}{\text{Support}(A)}
+    \]
+
+
 \end{frame}
 
-% --- 4. Objectives ---
-\section{Objectives}
-
-\begin{frame}{4. Objectives}
-    \textbf{General Objective:}
+% --- Lift ---
+\begin{frame}{3.3 Key Metric: Lift}
+    \textbf{Lift} \\
     \begin{itemize}
-        \item Develop an optimized implementation of the Apriori algorithm to efficiently\\
-              extract actionable association rules and insights from large-scale datasets.
+        \item Measures the strength of a rule compared to random occurrence.
     \end{itemize}
+    \vspace{1em}
+    \textbf{Formula:}
+    
 
-    \textbf{Specific Objectives:}
-    \begin{itemize}
-        \item Pre-filter popular products to reduce redundant candidate itemsets and\\
-              computational overhead.
-        \item Segment transactions based on temporal features (e.g., day of the week or hour) \\
-              to uncover context-specific patterns.
-        \item Evaluate algorithm performance on large datasets to identify scalability \\
-              bottlenecks and potential improvements.
-        \item Extract actionable insights into customer purchasing behavior to inform and \\
-              enhance future predictive models.
-    \end{itemize}
+\[
+    \text{Lift}(A \implies B) = \frac{\text{Confidence}(A \implies B)}{\text{Support}(B)}
+    \]
+
+
 \end{frame}
 
-% --- 5. Description and Analysis of the Dataset ---
-\section{Description and Analysis of the Dataset}
+% --- Section: Visualization of Results ---
+\section{Visualization of Results}
 
-\begin{frame}{5.1 Dataset Origin}
+\begin{frame}{4. Visualization: Interactive Scatter Plot}
     \begin{itemize}
-        \item This dataset is a relational set of files describing customers' grocery \\
-              orders over time.
-        \item It contains over 3 million orders from more than 200,000 Instacart users,\\ 
-              with each user having between 4 and 100 orders.
-        \item Orders include the sequence of purchased products, order day, hour of placement,\\
-              and the relative time between orders.
-        \item The dataset is anonymized. For additional details, please refer to the \\
-              accompanying blog post.
-        \item \textbf{Access the dataset at:} 
-        \\\url{https://www.kaggle.com/competitions/instacart-market-basket-analysis/data}
+        \item Metrics (\textbf{Support}, \textbf{Confidence}, and \textbf{Lift}) are displayed in the scatter plot.
+        \item Larger points represent stronger rules with higher \textbf{Lift}.
     \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{scatter_plot.png} % Capture of the scatter plot
+        \newline
+        \href{http://your-website.com/scatter_plot.html}{Click here to interact with the plot.}
+    \end{center}
 \end{frame}
 
-\begin{frame}{5.2 Dataset Characteristics}
+\begin{frame}{5. Visualization: Interactive Recommendation Graph}
     \begin{itemize}
-        \item The dataset is organized into several CSV files, each with unique IDs \\
-              and self-explanatory variable names:
-        \begin{itemize}
-            \item \textbf{aisles.csv}: Lists aisle IDs and names (e.g., "prepared soups salads").
-            \item \textbf{departments.csv}: Contains department IDs and names \\
-                  (e.g., "frozen", "bakery").
-            \item \textbf{order\_products\_\_prior.csv}: Details previous orders, including\\
-                  product IDs, add-to-cart order, and a 'reordered' flag.
-            \item \textbf{orders.csv}: Identifies order sets (prior, train, test) and provides\\
-                  temporal features like day of week and order hour.
-            \item \textbf{products.csv}: Lists product IDs, product names, and associated \\
-                  aisle and department IDs.
-        \end{itemize}
-        \item This organization enables detailed analysis of customer purchase behavior.
+        \item Blue nodes represent purchased products.
+        \item Orange nodes show recommended products.
+        \item Connections represent association rules based on \textbf{Lift}.
     \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{graph_interactive.png} % Capture of the interactive graph
+        \newline
+        \href{http://your-website.com/graph_interactive.html}{Click here to interact with the graph.}
+    \end{center}
 \end{frame}
 
-% --- 6. Algorithm Handling: Scope and Limitations ---
-\section{Algorithm Handling: Scope and Limitations}
+% --- Section: Conclusions and Future Improvements ---
+\section{Conclusions and Future Improvements}
 
-\begin{frame}{6. Algorithm Handling: Scope and Limitations}
+\begin{frame}{6. Conclusions and Future Improvements}
+    \textbf{Conclusions:}
     \begin{itemize}
-        \item Detailed explanation of the Apriori algorithm and its computational cost.
-        \item Implementation approach: building the algorithm from scratch.
-        \item Pre-filtering popular products and segmenting orders help reduce \\
-              redundant candidate itemsets.
-        \item Limitations include data size, performance constraints, and combinatorial\\
-              challenges.
+        \item The Apriori algorithm enables the discovery of patterns and generation of rule-based recommendations.
+        \item Integrating the algorithm with R optimized performance, including rule extraction and key metrics calculation.
+        \item Visualizations like graphs and scatter plots enhance the interpretation of results.
     \end{itemize}
-\end{frame}
 
-% --- 7. Project Development ---
-\section{Project Development}
-
-\begin{frame}{7. Project Development}
-    \textbf{Implementation of the Algorithm:}
-    \begin{itemize}
-        \item Step-by-step development of the Apriori algorithm.
-        \item Explanation of mechanisms chosen for feature extraction.
-    \end{itemize}
-    \vspace{0.5em}
-    \textbf{Performance Measurement and Benchmarking:}
-    \begin{itemize}
-        \item Define how performance is measured (execution time, memory usage, etc.).
-        \item Comparative analysis: benchmark against brute-force or alternative approaches.
-        \item Showcase experiments and results.
-    \end{itemize}
-\end{frame}
-
-% --- 8. Metrics ---
-\section{Metrics}
-
-\begin{frame}{8. Metrics (Undersampling) for Evaluation}
-    \begin{itemize}
-        \item Description of the performance metrics used for evaluation.
-        \item Explanation of undersampling techniques applied to balance the dataset.
-        \item How these metrics drive insights for model optimization.
-    \end{itemize}
-\end{frame}
-
-% --- 9. Conclusions and Business Recommendations ---
-\section{Conclusions and Business Recommendations}
-
-\begin{frame}{9. Conclusions and Business Recommendations}
-    \begin{itemize}
-        \item Summary of key findings and performance analysis.
-        \item Discussion on the scalability and efficiency of the custom Apriori implementation.
-        \item Business recommendations based on the project outcomes.
-        \item Potential avenues for future work and improvements.
-    \end{itemize}
-\end{frame}
-
-% --- 10. References ---
-\section{References}
-
-\begin{frame}{10. References}
-    \begin{thebibliography}{9}
-        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami,
-        \\ ``Fast algorithms for mining association rules,'' \\
-        in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 
-        \\ 1994, pp. 487--499.
-        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, \\
-        Kaggle Competition, [Online]. Available:\\
-         \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}.\\
-         Accessed: Mar. 2025.
-        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \\
-        \textit{Data Mining: Concepts and Techniques}, 2nd ed.,
-        \\Morgan Kaufmann, 2006.
-    \end{thebibliography}
-\end{frame}
-
-\end{document}
->>>>>>> 1622b5026961fad676087de8b1fa51235e5faf29
+    \vspace{2em}
+    \textbf
