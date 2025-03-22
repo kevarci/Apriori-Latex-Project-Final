@@ -1,31 +1,28 @@
 \documentclass{beamer}
+
 % --- Theme and Color Settings ---
-\usetheme{Madrid}
+\usetheme{Frankfurt}
 \usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
 
 % --- Required Packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
+\usepackage[spanish]{babel}
 \usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{url}
-\usepackage{tikz}           % Package for diagrams and flowcharts
-\usetikzlibrary{arrows,positioning}
-\usepackage{media9}         % For adding sound and interactive graphics
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning}
 
 % --- Title Information ---
-\title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm in R}
+\title{Potenciando el Marketing con Apriori}
+\subtitle{Transformando datos en estrategias efectivas}
 \author{
-\begin{tabular}{c} 
-Fernanda Flores \\ 
-Kevin Arciniegas \\ 
-Giussepe Marrero
-\end{tabular}
+    \begin{tabular}{c} 
+    Fernanda Flores \\ 
+    Kevin Arciniegas \\ 
+    Giussepe Marrero
+    \end{tabular}
 }
 \institute{4Geeks Academy}
 \date{\today}
@@ -33,205 +30,124 @@ Giussepe Marrero
 % --- Document Start ---
 \begin{document}
 
-% --- Title Slide ---
+% --- Slide 1: Title Slide ---
 \begin{frame}
     \titlepage
-    % Sound "bip" for slide transitions (requires bip.mp3 in the working directory)
-    \includemedia[
-        label=bip,
-        width=0.5ex,
-        height=0.5ex,
-        activate=onclick,
-        transparent,
-        addresource=bip.mp3,
-        flashvars={
-           source=bip.mp3
-           &autoplay=true
-        }
-    ]{}{APlayer.swf}
 \end{frame}
 
-% --- Table of Contents ---
-\begin{frame}{Table of Contents}
+% --- Slide 2: Table of Contents ---
+\begin{frame}{Contenido}
     \tableofcontents
 \end{frame}
 
-% --- Section: Technical Considerations and Challenges ---
-\section{Technical Considerations and Challenges}
-
-\begin{frame}{Technical Considerations and Challenges}
-    \begin{itemize}
-        \item The Apriori algorithm faces exponential complexity in mining association rules, with a worst-case computational cost of \(O(2^n)\), where \(n\) is the number of distinct items in the dataset.
-        \item This complexity arises from the need to generate and evaluate all possible subsets of items to identify frequent itemsets.
-        \item Optimizations such as pre-filtering infrequent items and applying the Apriori pruning principle can theoretically reduce computational costs, but the algorithm remains resource-intensive for large-scale datasets.
-        \item Challenges include managing memory usage and minimizing redundant computations during candidate generation and validation phases.
-        \item Future improvements could explore segmenting the dataset or implementing parallel processing to mitigate scalability bottlenecks.
-    \end{itemize}
+% --- Slide 3: Impactful Introduction ---
+\section{Introducción}
+\begin{frame}{¿Sabías esto?}
+    \centering
+    \Large
+    \textbf{El 80\% de las decisiones de compra están influenciadas por recomendaciones personalizadas.}
 \end{frame}
 
-% --- Section: Objectives ---
-\section{Objectives}
+% --- Slide 4: Project Purpose ---
+% Agregar al principio del documento, después de los otros paquetes
+\usepackage{fontspec}
+\usepackage{emoji}
 
-\begin{frame}{Objectives}
-    \textbf{General Objective:}
-    \begin{itemize}
-        \item Develop a functional Apriori algorithm capable of extracting frequent itemsets and generating association rules from transactional data.
-    \end{itemize}
-
-    \textbf{Specific Objectives:}
-    \begin{itemize}
-        \item Implement the modular stages of the Apriori algorithm: candidate generation, pruning, and support calculation.
-        \item Address challenges such as data imbalance and ensure compatibility with large-scale datasets.
-        \item Evaluate performance metrics such as execution time and memory usage under different dataset conditions.
-        \item Document the technical limitations and computational trade-offs encountered during development.
-    \end{itemize}
-\end{frame}
-
-% --- Section: Algorithm Handling: Scope and Limitations ---
-\section{Algorithm Handling: Scope and Limitations}
-
-\begin{frame}{Algorithm Handling: Scope and Limitations}
-    \begin{itemize}
-        \item The project leverages a modular approach to implementing the Apriori algorithm, focusing on candidate generation, pruning, and support calculation.
-        \item While the algorithm builds upon existing foundations, the emphasis is on adapting it to handle scalability and efficiency challenges.
-        \item Modular functions (e.g., pruning based on the Apriori principle) allow for independent testing and debugging of each phase.
-        \item Limitations arise primarily from data sparsity, the computational cost of frequent itemset generation, and the efficiency of handling large transaction datasets.
-        \item Future optimization could involve incorporating parallelization techniques or integrating more advanced pruning strategies.
-    \end{itemize}
-\end{frame}
-
-% --- Section: Data Loading and Preprocessing ---
-\section{Data Loading and Preprocessing}
-
-\begin{frame}{1. Data Loading and Preprocessing}
-    \begin{itemize}
-        \item The data comes from the \textbf{Instacart Market Basket Analysis} dataset.
-        \item A sparse matrix is generated, optimizing memory usage and enabling processing of large-scale datasets.
-        \item Transactions are organized as lists grouping the products purchased.
-    \end{itemize}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{matrix_sparse.png} % Image representing the sparse matrix
-        \newline
-        Representation of the generated sparse matrix.
-    \end{center}
-\end{frame}
-
-% --- Section: Algorithm Implementation ---
-\section{Implementation of the Apriori Algorithm}
-
-\begin{frame}{2. Implementation of the Apriori Algorithm in R}
-    \textbf{Main Steps:}
-    \begin{enumerate}
-        \item Identify \textbf{frequent itemsets} using a minimum support threshold.
-        \item Generate association rules such as:
-        
-
-\[ \{Product\ A, Product\ B\} \implies \{Product\ C\} \]
-
-
-        \item Optimize computations by leveraging the \textbf{arules} package in R.
-    \end{enumerate}
-
+% O alternativamente, reemplazar el emoji por texto
+% Modificar estas diapositivas:
+\begin{frame}{¿Qué queremos lograr?}
+    \centering
+    \Large
+    Este proyecto explora cómo convertir datos transaccionales en estrategias efectivas.  
     \vspace{1em}
-    \textbf{Optimizations:}
+    Te explicamos cómo. $\rightarrow$
+\end{frame}
+
+% --- Slide 5: Contextualizing the Problem ---
+\section{Market Basket Analysis}
+\begin{frame}{Market Basket Analysis: ¿Por qué es relevante?}
+    \textbf{Definición:}  
+    Técnica clave en retail y comercio electrónico para descubrir relaciones entre productos comprados juntos.  
     \begin{itemize}
-        \item Used transaction lists instead of unstructured datasets for better representation.
-        \item Introduced partial matching to improve flexibility in generating recommendations.
+        \item ¿Qué patrones de compra están escondidos en los datos?
+        \item Ejemplo: "Si un cliente compra pan y mantequilla, ¿también comprará leche?"
+        \item Aplicación: Optimizar ventas cruzadas, e-commerce y estrategias de marketing.
     \end{itemize}
 \end{frame}
 
-% --- Section: Key Metrics ---
-\section{Key Metrics}
-
-% --- Support ---
-\begin{frame}{3.1 Key Metric: Support}
-    \textbf{Support} \\
+\section{Algoritmo Apriori}
+\subsection{Conceptos Básicos}
+\begin{frame}{¿Qué es Apriori?}
+    \textbf{Una solución basada en patrones:}
     \begin{itemize}
-        \item Measures how frequently an itemset appears in the dataset.
+        \item Escanea transacciones para identificar productos populares.
+        \item Construye combinaciones (pares, tríos, etc.).
+        \item Descubre reglas como: "Si compras X, es probable que lleves Y."
     \end{itemize}
-    \vspace{1em}
-    \textbf{Formula:}
+    \textbf{Un ejemplo real:}
+    "Café y galletas son frecuentemente comprados juntos, generando una regla de recomendación clave."
+\end{frame}
+
+\subsection{Funcionamiento}
+\begin{frame}{¿Cómo Funciona el Algoritmo?}
+    \textbf{Pasos Clave de Apriori:}  
+    \begin{itemize}
+        \item \textbf{Escaneo de transacciones:} Identifica ítems frecuentes de tamaño 1.
+        \item \textbf{Generación de combinaciones:} Forma pares/tríos candidatos aplicando reglas de poda.
+        \item \textbf{Evaluación de métricas:} Calcula soporte, confianza y lift.
+        \item \textbf{Generación de reglas:} Deriva asociaciones accionables.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Diagrama de Flujo}
+    \centering
+    \begin{tikzpicture}[node distance=1.2cm]
+        \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2.8cm, minimum height=0.7cm, text centered, draw=black, fill=orange!30]
+        \tikzstyle{process} = [rectangle, minimum width=2.8cm, minimum height=0.7cm, text centered, draw=black, fill=cyan!20]
+        \tikzstyle{arrow} = [thick,->,>=stealth]
+
+        \node (start) [startstop] {Dataset Inicial};
+        \node[process, below=1cm of start] (prep) {Itemsets Frecuentes};
+        \node[process, below=1cm of prep] (matrix) {Generar Candidatos};
+        \node[process, below=1cm of matrix] (evaluate) {Evaluar Métricas};
+        \node[startstop, below=1cm of evaluate] (rules) {Generar Reglas};
+
+        \draw[arrow] (start) -- (prep);
+        \draw[arrow] (prep) -- (matrix);
+        \draw[arrow] (matrix) -- (evaluate);
+        \draw[arrow] (evaluate) -- (rules);
+    \end{tikzpicture}
+\end{frame}
+
+\section{Implementación}
+\begin{frame}{De los Datos a la Acción}
+    \textbf{Cómo resolvemos el problema:}  
+    Nuestra implementación híbrida (Python + R):  
+    \begin{itemize}
+        \item Limpieza de datos masivos en Python.
+        \item Algoritmo Apriori en R con precisión estadística.
+        \item Dashboards interactivos para visualizar asociaciones clave.
+    \end{itemize}
+\end{frame}
+
+\section{Resultados}
+\begin{frame}{Ejemplos Visuales}
+    \textbf{Gráficas interactivas:}  
+    \begin{itemize}
+        \item Scatter plot que muestra lift y confianza.
+        \item Ejemplo: "72\% de los clientes que compran café, también compran galletas."
+    \end{itemize}
+\end{frame}
+
+\section{Conclusión}
+\begin{frame}{Nuestra Promesa: Decisiones Basadas en Datos}
+    \centering
+    \Huge
+    \textbf{De transacciones a estrategias.}
     
-
-\[
-    \text{Support}(X) = \frac{\text{Transactions with } X}{\text{Total Transactions}}
-    \]
-
-
-\end{frame}
-
-% --- Confidence ---
-\begin{frame}{3.2 Key Metric: Confidence}
-    \textbf{Confidence} \\
-    \begin{itemize}
-        \item Measures the likelihood that the consequent appears, given the antecedent.
-    \end{itemize}
     \vspace{1em}
-    \textbf{Formula:}
-    
-
-\[
-    \text{Confidence}(A \implies B) = \frac{\text{Support}(A \cup B)}{\text{Support}(A)}
-    \]
-
-
+    \Large
+    ¿Estás listo para transformar tu negocio con ciencia de datos? Hablemos. $\rightarrow$
 \end{frame}
 
-% --- Lift ---
-\begin{frame}{3.3 Key Metric: Lift}
-    \textbf{Lift} \\
-    \begin{itemize}
-        \item Measures the strength of a rule compared to random occurrence.
-    \end{itemize}
-    \vspace{1em}
-    \textbf{Formula:}
-    
-
-\[
-    \text{Lift}(A \implies B) = \frac{\text{Confidence}(A \implies B)}{\text{Support}(B)}
-    \]
-
-
-\end{frame}
-
-% --- Section: Visualization of Results ---
-\section{Visualization of Results}
-
-\begin{frame}{4. Visualization: Interactive Scatter Plot}
-    \begin{itemize}
-        \item Metrics (\textbf{Support}, \textbf{Confidence}, and \textbf{Lift}) are displayed in the scatter plot.
-        \item Larger points represent stronger rules with higher \textbf{Lift}.
-    \end{itemize}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{scatter_plot.png} % Capture of the scatter plot
-        \newline
-        \href{http://your-website.com/scatter_plot.html}{Click here to interact with the plot.}
-    \end{center}
-\end{frame}
-
-\begin{frame}{5. Visualization: Interactive Recommendation Graph}
-    \begin{itemize}
-        \item Blue nodes represent purchased products.
-        \item Orange nodes show recommended products.
-        \item Connections represent association rules based on \textbf{Lift}.
-    \end{itemize}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{graph_interactive.png} % Capture of the interactive graph
-        \newline
-        \href{http://your-website.com/graph_interactive.html}{Click here to interact with the graph.}
-    \end{center}
-\end{frame}
-
-% --- Section: Conclusions and Future Improvements ---
-\section{Conclusions and Future Improvements}
-
-\begin{frame}{6. Conclusions and Future Improvements}
-    \textbf{Conclusions:}
-    \begin{itemize}
-        \item The Apriori algorithm enables the discovery of patterns and generation of rule-based recommendations.
-        \item Integrating the algorithm with R optimized performance, including rule extraction and key metrics calculation.
-        \item Visualizations like graphs and scatter plots enhance the interpretation of results.
-    \end{itemize}
-
-    \vspace{2em}
-    \textbf
+\end{document}
