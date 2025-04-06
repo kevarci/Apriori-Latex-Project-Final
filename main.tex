@@ -1,10 +1,4 @@
 \documentclass{beamer}
-
-% --- Theme and Color Settings ---
-\usetheme{Frankfurt}
-\usecolortheme{whale}
-\setbeamertemplate{navigation symbols}{}
-
 % --- Required Packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -12,7 +6,76 @@
 \usepackage{graphicx}
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows, positioning}
+\usetikzlibrary{shapes,shapes.geometric, arrows.meta, positioning, shadings, shadows, decorations.pathmorphing}
+\usepackage{fontawesome} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{fontawesome, fontawesome5}
+\usepackage{mathabx}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{hyperref} 
+\usepackage{pgfplots}
+\usepackage[ruled,vlined,linesnumbered,commentsnumbered,titlenotnumbered]{algorithm2e}
+\usepackage{media9}
+\usepackage[absolute,overlay]{textpos}
+
+
+
+% Definir colores (en el preámbulo)
+\definecolor{apriori-blue}{HTML}{00A8FF}
+\definecolor{apriori-green}{HTML}{4CD137}
+\definecolor{apriori-orange}{HTML}{FF9500}
+% Configuración base
+\setbeamercolor{background canvas}{bg=black!85}
+\setbeamercolor{normal text}{fg=white!90}
+\setbeamercolor{structure}{fg=apriori-blue}
+\setbeamercolor{alerted text}{fg=apriori-orange}
+% --- Document Start ---
+\begin{document}
+% Para diagramas de flujo
+% \node[fill=apriori-blue!20, text=apriori-blue] {\faSearch\ Escaneo};
+% \draw[->, apriori-green, thick] (nodo1) -- (nodo2);
+%Tablas de resultados
+% \rowcolors{1}{apriori-blue!10}{apriori-green!10}
+% Ecuaciones/Algoritmos
+% \begin{alertblock}{Fase de Combinación}
+% \textcolor{apriori-orange}{\textbf{Join Step}: $L_k \bowtie L_k$}
+% \end{alertblock}
+% Definir estilo del membrete
+\newtcolorbox{structurebox}{
+    enhanced,
+    colframe=apriori-white,
+    colback=white, % Fondo del cuadro
+    arc=3mm, % Radio de las esquinas
+    boxrule=1.5pt, % Grosor del borde
+    drop fuzzy shadow=apriori-white!50, % Opcional: sombra
+    before upper={\setbeamercolor{structure}{fg=black}}, % Color del texto
+    fonttitle=\bfseries\large,
+    left=4mm,
+    right=4mm,
+    top=2mm,
+    bottom=2mm
+}
+
+
+% Definir estilo "block" para los nodos
+\tikzset{
+	block/.style={
+		rectangle, 
+		minimum width=2cm, 
+		minimum height=1cm, 
+		text centered, 
+		draw=black, 
+		fill=blue!20, 
+		rounded corners
+	}
+}
+\makeatletter
+\@namedef{ver@fontawesome5.sty}{}
+\makeatother
 
 % --- Title Information ---
 \title{Potenciando el Marketing con Apriori}
@@ -21,122 +84,484 @@
     \begin{tabular}{c} 
     Fernanda Flores \\ 
     Kevin Arciniegas \\ 
-    Giussepe Marrero
-    \end{tabular}
-}
+    Giussepe Marreros
+    \end{tabular}}
+    
 \institute{4Geeks Academy}
 \date{\today}
-
-% --- Document Start ---
-\begin{document}
-
 % --- Slide 1: Title Slide ---
 \begin{frame}
     \titlepage
 \end{frame}
 
-% --- Slide 2: Table of Contents ---
-\begin{frame}{Contenido}
-    \tableofcontents
-\end{frame}
-
 % --- Slide 3: Impactful Introduction ---
-\section{Introducción}
 \begin{frame}{¿Sabías esto?}
-    \centering
-    \Large
-    \textbf{El 80\% de las decisiones de compra están influenciadas por recomendaciones personalizadas.}
+    % Cuadro de texto central en la parte superior con texto más pequeño
+    \begin{center}
+        \begin{tcolorbox}[
+            width=0.85\textwidth,
+            colback=apriori-blue!30,
+            colframe=apriori-blue,
+            coltext=black!95,
+            arc=5mm,
+            boxrule=1.5pt,
+            enhanced,
+            drop shadow={shadow xshift=2pt, shadow yshift=-2pt}
+        ]
+            \normalsize
+            \textbf{Un estudio de McKinsey revela que hasta el 35\% de las ventas en Amazon provienen de algoritmos de inteligencia artificial que recomiendan productos a los clientes.}
+        \end{tcolorbox}
+    \end{center}
+    
+    \vspace{0.3cm}
+    
+    % Imagen de Amazon centrada debajo del texto (reducida)
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{product-listing.jpg}
+    \end{center}
+    
+    \vspace{0.3cm}
+    
+    % Estadísticas en dos columnas debajo de la imagen (reducidas)
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                \node[scale=1.5, text=apriori-orange] {\Large\faChartLine};
+                \node[right=0.5cm, text=white!95, font=\small] {35\% de ingresos de Amazon};
+            \end{tikzpicture}
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                \node[scale=1.5, text=apriori-green] {\Large\faUsers};
+                \node[right=0.5cm, text=white!95, font=\small] {Mayor satisfacción};
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+    
+    % Fuente en la parte inferior
+    \vspace{0.2cm}
+    \begin{center}
+        \tiny\textcolor{white!80}{Fuente: blog.blendee.com/es/recomendacion-de-productos-tras-la-estela-de-amazon/}
+    \end{center}
 \end{frame}
 
 % --- Slide 4: Project Purpose ---
 % Agregar al principio del documento, después de los otros paquetes
-\usepackage{fontspec}
-\usepackage{emoji}
+\begin{frame}{Fuerza Bruta y Recursos Computacionales (I)}
+    % Cuadro azul con el desafío computacional
+    \begin{tcolorbox}[
+        colback=apriori-blue,
+        colframe=apriori-blue,
+        coltext=black,
+        arc=5mm,
+        boxrule=0pt,
+        width=0.9\textwidth,
+        title={\textbf{Desafío Computacional}},
+        coltitle=white,
+        fonttitle=\bfseries
+    ]
+        \begin{itemize}
+            \item \textbf{Algunas implementaciones usan fuerza bruta para evaluar combinaciones.}
+            \item \textbf{Complejidad exponencial en el número de ítems.}
+            \item \textbf{Método muy costoso al aumentar $n$.}
+        \end{itemize}
+    \end{tcolorbox}
+    
+    \vspace{0.7cm}
+    
+    % Fórmula de complejidad
+    \begin{center}
+        \textbf{Fórmula exacta de complejidad:}
+        
+        \vspace{0.4cm}
+        \large
+        Total de operaciones = $3^n - 2^{n+1} + 1$
+        
+        \vspace{0.7cm}
+        \textbf{Ejemplo:} Para 10 ítems, hay más de 57,000 operaciones.
+    \end{center}
+\end{frame}
+
+\begin{frame}{Fuerza Bruta y Recursos Computacionales (II)}
+    \begin{center}
+        \begin{tcolorbox}[
+            colback=orange!30,
+            colframe=orange,
+            coltext=black!95,
+            arc=5mm,
+            boxrule=1.5pt,
+            width=0.8\textwidth
+        ]
+            \centering
+            \textbf{Apriori optimiza este proceso} reduciendo drásticamente el espacio de búsqueda mediante el principio de anti-monotonía.
+        \end{tcolorbox}
+    \end{center}
+    
+    \vspace{0.7cm}
+    
+    \begin{itemize}
+        \item \textbf{Principio clave:} "Si un conjunto no es frecuente, ningún superconjunto lo será"
+        \item \textbf{Resultado:} Reducción exponencial del espacio de búsqueda
+    \end{itemize}
+\end{frame}
 
 % O alternativamente, reemplazar el emoji por texto
 % Modificar estas diapositivas:
-\begin{frame}{¿Qué queremos lograr?}
-    \centering
-    \Large
-    Este proyecto explora cómo convertir datos transaccionales en estrategias efectivas.  
-    \vspace{1em}
-    Te explicamos cómo. $\rightarrow$
-\end{frame}
 
 % --- Slide 5: Contextualizing the Problem ---
 \section{Market Basket Analysis}
-\begin{frame}{Market Basket Analysis: ¿Por qué es relevante?}
-    \textbf{Definición:}  
-    Técnica clave en retail y comercio electrónico para descubrir relaciones entre productos comprados juntos.  
-    \begin{itemize}
-        \item ¿Qué patrones de compra están escondidos en los datos?
-        \item Ejemplo: "Si un cliente compra pan y mantequilla, ¿también comprará leche?"
-        \item Aplicación: Optimizar ventas cruzadas, e-commerce y estrategias de marketing.
-    \end{itemize}
+\begin{frame}{Market Basket Analysis: ¿Qué es?}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Definición:}
+            \begin{tcolorbox}[
+                colback=apriori-blue!30,
+                colframe=apriori-blue,
+                coltext=black!95,
+                arc=3mm,
+                boxrule=1.5pt
+            ]
+                Técnica usada en retail y comercio electrónico para identificar asociaciones de productos que los clientes suelen comprar juntos.
+            \end{tcolorbox}
+            
+            \vspace{0.5cm}
+            \textbf{Pregunta clave:}
+            \begin{itemize}
+                \item \textcolor{white!90}{¿Qué patrones de compra están escondidos en los datos?}
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.48\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.85] % Reducido el tamaño para mejor ajuste
+                % Canasta de compras estilizada con mejor contraste - movida hacia la izquierda
+                \fill[apriori-orange!40, rounded corners] (-2.2,-0.3) rectangle (1.4,0.8);
+                
+                % Productos con iconos más visibles - ajustados a la nueva posición
+                \node[text=white!95, scale=1.2] at (-1.4,0.3) {\Large\faBreadSlice};
+                \node[text=white!95, scale=1.2] at (-0.4,0.3) {\Large\faCoffee};
+                \node[text=white!95, scale=1.2] at (0.6,0.3) {\Large\faAppleAlt};
+                
+                % Flecha y producto recomendado con mejor contraste - acortada
+                \draw[->, thick, apriori-green, line width=2pt] (1.6,0.3) -- (2.2,0.3);
+                
+                % Reemplazo del icono de leche - movido hacia la izquierda
+                \node[draw=apriori-green, line width=1.3pt, fill=apriori-green!50, text=white!95, 
+                      rounded corners, minimum width=1.2cm, minimum height=1cm] at (3.0,0.3) {
+                    \begin{tabular}{c}
+                    \Large\faGlassWhiskey \\
+                    \scriptsize\textbf{LECHE}
+                    \end{tabular}
+                };
+            \end{tikzpicture}
+            
+            \vspace{0.8cm}
+            \begin{tcolorbox}[
+                colback=apriori-orange!40,
+                colframe=apriori-orange,
+                coltext=black!95,
+                arc=3mm,
+                boxrule=1.5pt
+            ]
+                \centering
+                \textbf{Ejemplo:} "Si un cliente compra pan y café,\\
+                ¿también comprará leche?"
+            \end{tcolorbox}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-\section{Algoritmo Apriori}
-\subsection{Conceptos Básicos}
-\begin{frame}{¿Qué es Apriori?}
-    \textbf{Una solución basada en patrones:}
-    \begin{itemize}
-        \item Escanea transacciones para identificar productos populares.
-        \item Construye combinaciones (pares, tríos, etc.).
-        \item Descubre reglas como: "Si compras X, es probable que lleves Y."
-    \end{itemize}
-    \textbf{Un ejemplo real:}
-    "Café y galletas son frecuentemente comprados juntos, generando una regla de recomendación clave."
+\begin{frame}{¿Qué es una Regla en Apriori?}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \textbf{Definición:}\\
+            Una regla de asociación es una implicación de la forma:
+            \begin{center}
+                \colorbox{apriori-blue!90}{\textbf{X $\rightarrow$ Y}}
+            \end{center}
+            donde X e Y son conjuntos de ítems (itemsets) que no se solapan.
+            
+            \vspace{0.3cm}
+            \textbf{Interpretación:}\\
+            "Si un cliente compra los productos del conjunto X, entonces es probable que también compre los productos del conjunto Y"
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \begin{tcolorbox}[
+                colback=apriori-orange!10,
+                colframe=apriori-orange,
+                title=\textbf{Ejemplo Real},
+                fonttitle=\bfseries
+            ]
+                \centering
+                \includegraphics[width=0.3\textwidth]{pan.png} \includegraphics[width=0.3\textwidth]{mante.png}
+                $\Rightarrow$
+                \includegraphics[width=0.3\textwidth]{merme.png}
+                
+                \vspace{0.2cm}
+                \small
+                \textbf{Soporte:} 15\% de transacciones\\
+                \textbf{Confianza:} 68\% de clientes\\
+                \textbf{Lift:} 3.2 (asociación fuerte)
+            \end{tcolorbox}
+            
+            \small
+            \textbf{Acción:} Colocar mermelada cerca de pan y mantequilla aumentaría ventas en un 23\%.
+        \end{column}
+    \end{columns}
 \end{frame}
 
-\subsection{Funcionamiento}
+\begin{frame}{Algoritmo Apriori ¿Cómo se define?}
+    \textbf{Es un método inteligente para descubrir patrones ocultos en grandes conjuntos de transacciones, como las compras de un supermercado o las relaciones de los productos en tiendas online.}
+    
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.33\textwidth}
+            \begin{tcolorbox}[colback=apriori-blue!20, colframe=apriori-blue, title=\textbf{Soporte}]
+                \centering
+                \small
+                \textbf{¿Qué tan común?}\\
+                \vspace{0.2cm}
+                $\frac{\text{Transacciones con }X\text{ y }Y}{\text{Total de transacciones}}$
+            \end{tcolorbox}
+        \end{column}
+        
+        \begin{column}{0.33\textwidth}
+            \begin{tcolorbox}[colback=apriori-orange!20, colframe=apriori-orange, title=\textbf{Confianza}]
+                \centering
+                \small
+                \textbf{¿Qué tan seguro?}\\
+                \vspace{0.2cm}
+                $\frac{\text{Soporte}(X \cup Y)}{\text{Soporte}(X)}$
+            \end{tcolorbox}
+        \end{column}
+        
+        \begin{column}{0.33\textwidth}
+            \begin{tcolorbox}[colback=apriori-green!20, colframe=apriori-green, title=\textbf{Lift}]
+                \centering
+                \small
+                \textbf{¿Qué tan fuerte?}\\
+                \vspace{0.2cm}
+                $\frac{\text{Confianza}(X \rightarrow Y)}{\text{Soporte}(Y)}$
+            \end{tcolorbox}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 \begin{frame}{¿Cómo Funciona el Algoritmo?}
     \textbf{Pasos Clave de Apriori:}  
     \begin{itemize}
-        \item \textbf{Escaneo de transacciones:} Identifica ítems frecuentes de tamaño 1.
-        \item \textbf{Generación de combinaciones:} Forma pares/tríos candidatos aplicando reglas de poda.
-        \item \textbf{Evaluación de métricas:} Calcula soporte, confianza y lift.
+        \item \textbf{Escaneo de transacciones:} Identifica ítems frecuentes de tamaño 1 (leche).
+        \item \textbf{Generación de combinaciones:} Busca pares (leche + pan), luego tríos (leche + pan + huevos).
+        \item \textbf{Filtrado inteligente:} Descarta combinaciones poco frecuentes usando el soporte mínimo
         \item \textbf{Generación de reglas:} Deriva asociaciones accionables.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Diagrama de Flujo}
+\begin{frame}{Pseudocódigo del Algoritmo Apriori}
     \centering
-    \begin{tikzpicture}[node distance=1.2cm]
-        \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2.8cm, minimum height=0.7cm, text centered, draw=black, fill=orange!30]
-        \tikzstyle{process} = [rectangle, minimum width=2.8cm, minimum height=0.7cm, text centered, draw=black, fill=cyan!20]
-        \tikzstyle{arrow} = [thick,->,>=stealth]
-
-        \node (start) [startstop] {Dataset Inicial};
-        \node[process, below=1cm of start] (prep) {Itemsets Frecuentes};
-        \node[process, below=1cm of prep] (matrix) {Generar Candidatos};
-        \node[process, below=1cm of matrix] (evaluate) {Evaluar Métricas};
-        \node[startstop, below=1cm of evaluate] (rules) {Generar Reglas};
-
-        \draw[arrow] (start) -- (prep);
-        \draw[arrow] (prep) -- (matrix);
-        \draw[arrow] (matrix) -- (evaluate);
-        \draw[arrow] (evaluate) -- (rules);
-    \end{tikzpicture}
+    \begin{tcolorbox}[
+        width=0.95\textwidth,
+        colback=blue!10!black,
+        colframe=blue!50!black,
+        coltext=white,
+        arc=0mm,
+        boxrule=0.5mm,
+        title={\textbf{Algoritmo Apriori}},
+        fonttitle=\small\bfseries,
+        fontsize=\footnotesize
+    ]
+    \textbf{Entrada:} Base de datos $D$ de Instacart, soporte mínimo $min\_sup$\\
+    \textbf{Salida:} Conjunto de itemsets frecuentes $L$\\[0.1em]
+    
+    $L_1 \leftarrow$ \{itemsets frecuentes de 1 elemento\}\\
+    $k \leftarrow 2$\\
+    \textbf{Repetir:}\\
+    \hspace{0.5em}$C_k \leftarrow$ generar\_candidatos($L_{k-1}$)\\
+    \hspace{0.5em}\textbf{Para} transacciones en $D$:\\
+    \hspace{1em}\textbf{Para} candidatos en $C_k$:\\
+    \hspace{1.5em}\textbf{Si} candidato está en transacción: contar candidato\\
+    \hspace{0.5em}$L_k \leftarrow$ candidatos con soporte $\geq min\_sup$\\
+    \hspace{0.5em}$k \leftarrow k + 1$\\
+    \textbf{Hasta que} $L_{k-1}$ sea vacío\\
+    \textbf{Retornar} todos los conjuntos $L_k$
+    \end{tcolorbox}
 \end{frame}
 
-\section{Implementación}
-\begin{frame}{De los Datos a la Acción}
-    \textbf{Cómo resolvemos el problema:}  
-    Nuestra implementación híbrida (Python + R):  
+\begin{frame}{Generación de Reglas: Las Matemáticas Detrás}
+    \centering
+    \begin{tcolorbox}[
+        width=0.9\textwidth,
+        colback=blue!10!black,
+        colframe=blue!50!black,
+        coltext=white,
+        arc=0mm,
+        boxrule=0.5mm,
+        title={\textbf{Ecuaciones Clave}}
+    ]
+    \begin{align*}
+    \text{Regla:} & \quad X \rightarrow Y \\[0.5em]
+    \text{Soporte}(X \rightarrow Y) &= \frac{\text{Transacciones con }X\text{ y }Y}{\text{Total de transacciones}} \\[0.5em]
+    \text{Confianza}(X \rightarrow Y) &= \frac{\text{Soporte}(X \cup Y)}{\text{Soporte}(X)} \\[0.5em]
+    \text{Lift}(X \rightarrow Y) &= \frac{\text{Confianza}(X \rightarrow Y)}{\text{Soporte}(Y)}
+    \end{align*}
+    \end{tcolorbox}
+    
+    \vspace{0.5em}
+    \small
+    \textbf{Ejemplo:} Si el 5\% de transacciones contienen café y galletas, el 7\% contienen café, y el 8\% contienen galletas:
     \begin{itemize}
-        \item Limpieza de datos masivos en Python.
-        \item Algoritmo Apriori en R con precisión estadística.
-        \item Dashboards interactivos para visualizar asociaciones clave.
+        \item \textbf{Confianza} (Café → Galletas) = 5\%/7\% = 71\%
+        \item \textbf{Lift} = 71\%/8\% = 8.9 (¡Fuerte asociación!)
     \end{itemize}
+\end{frame}
+
+
+
+\section{Implementación}
+\begin{frame}{Enfoque Metodológico (I): Caso de Estudio}
+    \begin{center}
+        \begin{tcolorbox}[
+            colback=apriori-orange!10,
+            colframe=apriori-orange,
+            width=0.9\textwidth,
+            boxrule=1.5pt,
+            arc=5mm,
+            title={\textbf{Caso de Estudio: Base de datos de Instacart}},
+            fonttitle=\bfseries,
+            coltitle=black!90
+        ]
+            \begin{itemize}
+                \item \textcolor{black!100}{\textbf{Volumen:} 3 millones de órdenes}
+                \item \textcolor{black!100}{\textbf{Usuarios:} Más de 200,000 clientes}
+                \item \textcolor{black!100}{\textbf{Productos:} 50,000 productos únicos}
+                \item \textcolor{black!100}{\textbf{Categorías:} 21 departamentos y 134 pasillos}
+            \end{itemize}
+        \end{tcolorbox}
+    \end{center}
+    
+    \vspace{0.5cm}
+    \textbf{Desafío:} Identificar patrones de compra y asociaciones entre productos para optimizar recomendaciones y estrategias de marketing en tiempo real.
+\end{frame}
+
+\begin{frame}{Enfoque Metodológico (II): Flujo de Trabajo}
+    \begin{columns}[T]
+        \begin{column}{0.45\textwidth}
+            \begin{tcolorbox}[
+                colback=apriori-blue!10,
+                colframe=apriori-blue,
+                title=\textbf{Flujo de Trabajo},
+                fonttitle=\bfseries,
+                coltitle=black!90
+            ]
+                \begin{enumerate}
+                    \item \textcolor{black!100}{\textbf{Python:} Preprocesamiento de datos masivos}
+                    \item \textcolor{black!90}{\textbf{R:} Aplicación del algoritmo Apriori}
+                    \item \textcolor{black!90}{\textbf{Análisis:} Cálculo de métricas clave}
+                    \item \textcolor{black!90}{\textbf{Visualización:} Dashboards interactivos}
+                \end{enumerate}
+            \end{tcolorbox}
+        \end{column}
+        
+        \begin{column}{0.55\textwidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1.2cm,
+                process/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=white, fill=apriori-blue!70},
+                arrow/.style={thick, ->, >=stealth, draw=white}
+            ]
+                \node (data) [process] {\faDatabase\ Datos Crudos};
+                \node (python) [process, below of=data] {\faPython\ Limpieza (Python)};
+                \node (r) [process, below of=python] {\faRProject\ Apriori (R)};
+                \node (metrics) [process, below of=r] {\faChartBar\ Métricas};
+                
+                \draw [arrow] (data) -- (python);
+                \draw [arrow] (python) -- (r);
+                \draw [arrow] (r) -- (metrics);
+                
+                \node[right=0.5cm of metrics, text=white, align=left] {
+                    \textbf{Lift:} 4.2\\
+                    \textbf{Confianza:} 78\%
+                };
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.3cm}
+    \centering
+    \textbf{Ventaja:} Combinamos la eficiencia de Python para el procesamiento de datos con la precisión estadística de R para el análisis de asociaciones.
+\end{frame}
+
+\begin{frame}{Ejemplos Visuales}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \textbf{Gráficas interactivas:}  
+            \begin{itemize}
+                \item Scatter plot que muestra lift y confianza.
+                \item Ejemplo: "72\% de los clientes que compran café, también compran galletas."
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.6\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.7]
+                \begin{axis}[
+                    title={Reglas de Asociación},
+                    xlabel={Confianza (\%)},
+                    ylabel={Lift},
+                    xmin=35, xmax=95,
+                    ymin=1, ymax=4.5,
+                    grid=both,
+                    width=7cm,
+                    height=5.5cm
+                ]
+                
+                % Puntos para las reglas
+                \addplot[
+                    only marks,
+                    mark=*,
+                    mark size=3pt,
+                    color=red
+                ] coordinates {
+                    (72, 3.2)
+                    (65, 2.8)
+                    (45, 1.5)
+                    (85, 4.2)
+                    (55, 2.1)
+                };
+                
+                % Etiquetas ajustadas para mejor visibilidad
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:72,3.2) {Café→Galletas};
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:65,2.8) {Pan→Leche};
+                \node[anchor=south west, font=\tiny, text=white] at (axis cs:45,1.5) {Huevos→Tocino};
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:75,4.2) {Chips→Refresco};
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:55,2.1) {Pasta→Salsa};
+                
+                \end{axis}
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Resultados}
-\begin{frame}{Ejemplos Visuales}
-    \textbf{Gráficas interactivas:}  
-    \begin{itemize}
-        \item Scatter plot que muestra lift y confianza.
-        \item Ejemplo: "72\% de los clientes que compran café, también compran galletas."
-    \end{itemize}
+% Diapositiva para la visualización de Productos Recomendados
+\begin{frame}{Productos Recomendados Basados en Transacción}
+    \centering
+    % Si es necesario ajustar márgenes de la imagen, puedes utilizar la opción trim.
+    \includegraphics[width=0.8\linewidth, trim=0 0 0 0, clip]{graph_recomendados.png}
+    \vspace{0.5cm}
+    % Botón interactivo que vincula a la versión HTML alojada en GitHub Pages.
+    \href{https://ffloresm30.github.io/Visualizaciones-apriori/graph_recomendados.html}{\beamergotobutton{Ver gráfico interactivo}}
+\end{frame}
+% Diapositiva para la Red Interactiva
+\begin{frame}{Red Interactiva de Productos Comprados y Recomendados}
+    \centering
+    \includegraphics[width=0.8\linewidth, trim=0 0 0 0, clip]{graph_red.png}
+    \vspace{0.5cm}
+    \href{https://ffloresm30.github.io/Visualizaciones-apriori/graph_red.html}{\beamergotobutton{Ver red interactiva}}
 \end{frame}
 
 \section{Conclusión}
@@ -147,7 +572,19 @@
     
     \vspace{1em}
     \Large
-    ¿Estás listo para transformar tu negocio con ciencia de datos? Hablemos. $\rightarrow$
+    
+    
+    \vspace{1.5em}
+    \begin{tikzpicture}
+        \node[fill=apriori-blue!70, text=white, rounded corners, minimum width=3cm, minimum height=1cm] at (0,0) {\textbf{Innovación}};
+        \node[fill=apriori-orange!70, text=white, rounded corners, minimum width=3cm, minimum height=1cm] at (4,0) {\textbf{Precisión}};
+        \node[fill=apriori-green!70, text=white, rounded corners, minimum width=3cm, minimum height=1cm] at (8,0) {\textbf{Resultados}};
+    \end{tikzpicture}
+    
+    \vspace{1.5em}
+    \large
+    \textit{¡Gracias por su atención!}
 \end{frame}
+
 
 \end{document}
