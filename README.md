@@ -1,80 +1,104 @@
-# Proyecto de Análisis de Reglas de Asociación con Apriori
+# Sistema de Recomendaciones Personalizadas con Apriori y R
+
+![Version](https://img.shields.io/badge/version-1.1-blue.svg)
+
+*"En este proyecto, fusionamos nuestra pasión por el Data Science con algoritmos clásicos de minería de datos para crear soluciones que transforman simples transacciones en experiencias personalizadas. Cada línea de código representa nuestro compromiso con descubrir patrones ocultos en los datos que mejoran la vida cotidiana."*
+
+## Colaboradores
+- Fernanda Flores
+- Kevin Arciniegas
+- Giussepe Marreros
+
+## Descripción del Proyecto
+
+Este proyecto implementa un sistema de recomendaciones basado en el algoritmo Apriori para análisis de reglas de asociación, utilizando datos de transacciones de compras de Instacart. El sistema combina la potencia de Python y R para procesar grandes volúmenes de datos, identificar patrones de compra y generar recomendaciones personalizadas.
+
+## Características Principales
+
+- Análisis de Market Basket (Cesta de Compra) para identificar productos que se compran juntos
+- Implementación optimizada del algoritmo Apriori para grandes conjuntos de datos
+- Enfoque híbrido que combina Python para preprocesamiento y R para minería de reglas
+- Visualización interactiva de reglas de asociación y patrones de compra
+- Generación de recomendaciones personalizadas basadas en comportamientos de compra
 
 ## Configuración del Entorno
 
-Para configurar el entorno de desarrollo:
+### Requisitos Previos
+- Python 3.7+
+- R 4.0+
+- Jupyter Notebook
+
+### Instalación
 
 1. Crear un entorno virtual:
--python -m venv venv
-
+python -m venv venv
 2. Activar el entorno virtual:
-- Windows (cmd): `venv\Scripts\activate`
-- Windows (PowerShell): `venv\Scripts\Activate.ps1`
-- Linux/Mac: `source venv/bin/activate`
+### Windows
+venv\Scripts\activate
+### macOS/Linux
+source venv/bin/activate
+3. Instalar las dependencias de python:
+pip install pandas numpy matplotlib plotly networkx scipy mlxtend
+4. Instalar las dependencias de R:
+install.packages(c("arules", "arulesViz", "tidyverse", "readr"))
 
-3. Instalar dependencias:
-- pip install -r requirements.txt
+## Estructura del Proyecto
+├── data/
+│   ├── order_products__train.csv
+│   └── products.csv
+├── notebooks/
+│   ├── hibridApriori.ipynb
+│   └── visualizacion_reglas.ipynb
+├── docs/
+│   └── Sistema de Recomendaciones personalizadas con Apriori.pdf
+└── README.md
 
-## Implementaciones Recientes
+## Metodología
+El proyecto sigue un enfoque híbrido que combina Python y R para el análisis de reglas de asociación:
 
-### Preprocesamiento de Datos
-- Carga de datos de transacciones desde el archivo 'order_products__train.csv'
-- Implementación de enfoque optimizado para manejar grandes volúmenes de datos:
-- Selección de los 1000 productos más frecuentes para reducir dimensionalidad
-- Creación de matriz binaria usando crosstab para representar presencia/ausencia de productos
-- Conversión a formato binario (1 para presencia, 0 para ausencia)
+1. Preprocesamiento en Python : Limpieza de datos, transformación y creación de matrices dispersas para representar transacciones.
+2. Implementación del Algoritmo Apriori : Versión optimizada para procesar grandes volúmenes de datos mediante procesamiento por lotes.
+3. Minería de Reglas en R : Utilización de la librería arules para descubrir patrones y reglas de asociación.
+4. Visualización : Representación gráfica de las reglas descubiertas para facilitar su interpretación.
+5. Generación de Recomendaciones : Creación de recomendaciones personalizadas basadas en las reglas de asociación descubiertas.
 
-### Estructuras de Datos Eficientes
-- Implementación de múltiples estructuras para almacenar transacciones:
-- Estructura de diccionario: Eficiente para búsquedas y operaciones de conjuntos
-- Arrays de bits: Representación compacta en memoria para operaciones bit a bit
-- DataFrame sparse: Combinación de pandas con ahorro de memoria para matrices dispersas
-- Cada estructura optimizada para diferentes fases del algoritmo Apriori
+## Resultados
+El sistema ha identificado patrones de compra significativos en el conjunto de datos de Instacart, con reglas de asociación que muestran relaciones interesantes entre productos. Algunas de las métricas clave incluyen:
 
-### Generación de Itemsets Frecuentes
-- Implementación de la generación de 1-itemsets frecuentes
-- Establecimiento de umbral de soporte mínimo configurable
-- Cálculo del soporte para cada producto individual
-- Filtrado de productos que cumplen con el soporte mínimo
-- Ordenamiento de itemsets por soporte en orden descendente
-- Preparación de estructura de datos para generación de itemsets de mayor tamaño
+- Soporte mínimo utilizado: 0.01
+- Confianza mínima: 0.3
+- Número de reglas generadas: Más de 100 reglas significativas
+Las visualizaciones generadas permiten identificar clusters de productos que se compran frecuentemente juntos, facilitando la toma de decisiones para estrategias de marketing y disposición de productos.
 
-### Generación de Itemsets de Mayor Tamaño
-- Implementación completa de la generación de k-itemsets (k ≥ 2)
-- Algoritmo de poda basado en la propiedad de anti-monotonía del soporte
-- Optimización de memoria mediante técnicas de hash para candidatos
-- Paralelización del proceso de conteo para mejorar rendimiento en datasets grandes
+## Uso del Sistema
+### Ejecución del Análisis
+1. Abrir el notebook hibridApriori.ipynb en Jupyter Notebook:
+jupyter notebook notebooks/hibridApriori.ipynb
+2. Ejecutar las celdas de código en secuencia para cargar los datos, preprocesarlos, ejecutar el algoritmo Apriori y generar recomendaciones.
+3. Visualizar las reglas de asociación generadas y las recomendaciones personalizadas.
+jupyter notebook notebooks/visualizacion_reglas.ipynb
 
-### Generación de Reglas de Asociación
-- Implementación del algoritmo para extraer reglas a partir de itemsets frecuentes
-- Cálculo de métricas de interés: soporte, confianza, lift y conviction
-- Filtrado de reglas según umbrales configurables de confianza mínima
-- Ordenamiento de reglas por relevancia según múltiples criterios
+### Generación de Recomendaciones
+El sistema puede generar recomendaciones de dos formas:
 
-### Integración con LaTeX
-- Generación automática de documentos LaTeX con resultados del análisis
-- Creación de tablas formateadas con las reglas más relevantes
-- Inclusión de gráficos de visualización de métricas
-- Exportación a PDF mediante integración con compilador LaTeX
+1. Recomendaciones basadas en productos : Dado un producto, recomienda otros productos que se compran frecuentemente junto con él.
+2. Recomendaciones basadas en carrito : Analiza los productos en el carrito actual y sugiere productos adicionales basados en patrones de compra.
 
-### Interfaz de Usuario
-- Desarrollo de interfaz gráfica para configuración de parámetros
-- Visualización interactiva de resultados y métricas
-- Opciones de filtrado y ordenamiento de reglas en tiempo real
-- Exportación de resultados en múltiples formatos (CSV, Excel, PDF)
+## Conclusiones
+El enfoque híbrido Python-R ha demostrado ser efectivo para el análisis de grandes volúmenes de datos de transacciones. Las optimizaciones implementadas en el algoritmo Apriori permiten procesar eficientemente conjuntos de datos que de otra manera serían computacionalmente prohibitivos.
 
-### Últimas Optimizaciones del Algoritmo Apriori
-- Mejora significativa en la generación de candidatos para reducir uso de memoria
-- Implementación de cálculo de soporte optimizado mediante operaciones de conjuntos
-- Incorporación de procesamiento por lotes para manejar grandes volúmenes de datos
-- Precomputación de conjuntos de transacciones para acelerar verificación de candidatos
-- Filtrado inteligente de transacciones por longitud mínima para evitar procesamiento innecesario
-- Adición de indicadores de progreso durante el procesamiento de grandes conjuntos de datos
-- Optimización de la fase de conteo mediante el uso eficiente de operaciones de subconjuntos
-- Mejora en la gestión de memoria para permitir umbrales de soporte más bajos
+Las reglas de asociación descubiertas proporcionan insights valiosos sobre el comportamiento de compra de los clientes, permitiendo personalizar recomendaciones y mejorar la experiencia de usuario en plataformas de comercio electrónico.
 
-### Próximos Pasos
-- Implementación de algoritmos de visualización avanzada de reglas
-- Integración con técnicas de clustering para agrupamiento de reglas similares
-- Desarrollo de módulo de interpretación automática de reglas
-- Optimización adicional para conjuntos de datos ultra grandes
+## Trabajo Futuro
+- Implementación de un sistema de recomendaciones en tiempo real
+- Integración con plataformas de e-commerce
+- Exploración de algoritmos alternativos como FP-Growth para comparar rendimiento
+- Incorporación de información demográfica para recomendaciones más personalizadas
+
+## Licencia
+Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+
+## Referencias
+- Agrawal, R., & Srikant, R. (1994). Fast algorithms for mining association rules. Proc. 20th int. conf. very large data bases, VLDB, 1215, 487-499.
+- Hahsler, M., Grün, B., & Hornik, K. (2005). arules - A computational environment for mining association rules and frequent item sets. Journal of Statistical Software, 14(15), 1-25.
+- Instacart Market Basket Analysis. (2017). Kaggle. https://www.kaggle.com/c/instacart-market-basket-analysis
