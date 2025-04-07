@@ -1,634 +1,590 @@
-<<<<<<< HEAD
 \documentclass{beamer}
-
-% Theme and color settings
-\usetheme{Madrid}
-\usecolortheme{whale}
-
-% Packages 
+% --- Required Packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
+\usepackage[spanish]{babel}
 \usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{url}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes,shapes.geometric, arrows.meta, positioning, shadings, shadows, decorations.pathmorphing}
+\usepackage{fontawesome} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{fontawesome, fontawesome5}
+\usepackage{mathabx}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{hyperref} 
+\usepackage{pgfplots}
+\usepackage[ruled,vlined,linesnumbered,commentsnumbered,titlenotnumbered]{algorithm2e}
+\usepackage{media9}
+\usepackage[absolute,overlay]{textpos}
 
-% Información del título
-\title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm}
-\author{
-\begin{tabular}{c} 
-Fernanda Flores \\ 
-Kevin Arciniegas \\ 
-Giussepe Marrero
-\end{tabular}
-}
-\institute{4Geeks Academy}
-\date{\today}
 
+
+% Definir colores (en el preámbulo)
+\definecolor{apriori-blue}{HTML}{00A8FF}
+\definecolor{apriori-green}{HTML}{4CD137}
+\definecolor{apriori-orange}{HTML}{FF9500}
+% Configuración base
+\setbeamercolor{background canvas}{bg=black!85}
+\setbeamercolor{normal text}{fg=white!90}
+\setbeamercolor{structure}{fg=apriori-blue}
+\setbeamercolor{alerted text}{fg=apriori-orange}
+% --- Document Start ---
 \begin{document}
-
-% --- Cover Slide ---
-\begin{frame}
-    \titlepage
-\end{frame}
-
-% --- Table of Contents ---
-\begin{frame}{Outline}
-    \tableofcontents
-\end{frame}
-
-% --- 1. Technical Framework Theory ---
-\section{Technical Framework Theory}
-
-\begin{frame}{1. Technical Framework Theory}
-    \begin{itemize}
-        \item \textbf{Association Rule Mining and Apriori Algorithm:} Identifies \\
-              patterns in datasets; Apriori discovers frequent itemsets to extract meaningful rules.
-        \item \textbf{Apriori Algorithm Functionality:} Uses a bottom-up approach, \\
-              starting with individual items and progressively combining them into larger\\
-              itemsets, filtering out infrequent ones based on a minimum support threshold.
-        \item \textbf{Computational Challenges:} Faces combinatorial explosion and high \\
-              resource demands when processing large datasets.
-    \end{itemize}
-\end{frame}
-
-% --- 2. Problem Statement ---
-\section{Problem Statement}
-
-\begin{frame}{2. Problem Statement}
-    \begin{itemize}
-        \item There is no efficient method to automatically discover high-quality \\
-              association rules in large-scale datasets.
-        \item Traditional brute-force approaches become unfeasible due to the combinatorial \\
-              explosion of candidate itemsets.
-        \item Existing algorithms, including Apriori, struggle with processing high-dimensional\\
-              data efficiently.
-        \item Optimizing the mining process by pre-filtering popular products and segmenting \\
-              orders temporally may improve efficiency and yield actionable insights.
-    \end{itemize}
-\end{frame}
-
-% --- 3. Project Justification ---
-\section{Project Justification}
-
-\begin{frame}{3. Project Justification}
-    \begin{itemize}
-        \item Current algorithms struggle with combinatorial problems and high resource \\
-              consumption.
-        \item Implementing Apriori from scratch helps understand its fundamental principles.
-        \item Pre-filtering popular products and segmenting orders can improve efficiency \\
-              in rule extraction.
-        \item The custom approach aims to reduce computational complexity and execution time.
-    \end{itemize}
-\end{frame}
-
-% --- 4. Objectives ---
-\section{Objectives}
-
-\begin{frame}{4. Objectives}
-    \textbf{General Objective:}
-    \begin{itemize}
-        \item Develop an optimized implementation of the Apriori algorithm to efficiently\\
-              extract actionable association rules and insights from large-scale datasets.
-    \end{itemize}
-
-    \textbf{Specific Objectives:}
-    \begin{itemize}
-        \item Pre-filter popular products to reduce redundant candidate itemsets and\\
-              computational overhead.
-        \item Segment transactions based on temporal features (e.g., day of the week or hour) \\
-              to uncover context-specific patterns.
-        \item Evaluate algorithm performance on large datasets to identify scalability \\
-              bottlenecks and potential improvements.
-        \item Extract actionable insights into customer purchasing behavior to inform and \\
-              enhance future predictive models.
-    \end{itemize}
-\end{frame}
-
-% --- 5. Description and Analysis of the Dataset ---
-\section{Description and Analysis of the Dataset}
-
-\begin{frame}{5.1 Dataset Origin}
-    \begin{itemize}
-        \item This dataset is a relational set of files describing customers' grocery \\
-              orders over time.
-        \item It contains over 3 million orders from more than 200,000 Instacart users,\\ 
-              with each user having between 4 and 100 orders.
-        \item Orders include the sequence of purchased products, order day, hour of placement,\\
-              and the relative time between orders.
-        \item The dataset is anonymized. For additional details, please refer to the \\
-              accompanying blog post.
-        \item \textbf{Access the dataset at:} 
-        \\\url{https://www.kaggle.com/competitions/instacart-market-basket-analysis/data}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{5.2 Dataset Characteristics}
-    \begin{itemize}
-        \item The dataset is organized into several CSV files, each with unique IDs \\
-              and self-explanatory variable names:
-        \begin{itemize}
-            \item \textbf{aisles.csv}: Lists aisle IDs and names (e.g., "prepared soups salads").
-            \item \textbf{departments.csv}: Contains department IDs and names \\
-                  (e.g., "frozen", "bakery").
-            \item \textbf{order\_products\_\_prior.csv}: Details previous orders, including\\
-                  product IDs, add-to-cart order, and a 'reordered' flag.
-            \item \textbf{orders.csv}: Identifies order sets (prior, train, test) and provides\\
-                  temporal features like day of week and order hour.
-            \item \textbf{products.csv}: Lists product IDs, product names, and associated \\
-                  aisle and department IDs.
-        \end{itemize}
-        \item This organization enables detailed analysis of customer purchase behavior.
-    \end{itemize}
-\end{frame}
-
-% --- 6. Algorithm Handling: Scope and Limitations ---
-\section{Algorithm Handling: Scope and Limitations}
-
-\begin{frame}{6. Algorithm Handling: Scope and Limitations}
-    \begin{itemize}
-        \item Detailed explanation of the Apriori algorithm and its computational cost.
-        \item Implementation approach: building the algorithm from scratch.
-        \item Pre-filtering popular products and segmenting orders help reduce \\
-              redundant candidate itemsets.
-        \item Limitations include data size, performance constraints, and combinatorial\\
-              challenges.
-    \end{itemize}
-\end{frame}
-
-% --- 7. Project Development ---
-\section{Project Development}
-
-\begin{frame}{7. Project Development}
-    \textbf{Implementation of the Algorithm:}
-    \begin{itemize}
-        \item Step-by-step development of the Apriori algorithm.
-        \item Explanation of mechanisms chosen for feature extraction.
-    \end{itemize}
-    \vspace{0.5em}
-    \textbf{Performance Measurement and Benchmarking:}
-    \begin{itemize}
-        \item Define how performance is measured (execution time, memory usage, etc.).
-        \item Comparative analysis: benchmark against brute-force or alternative approaches.
-        \item Showcase experiments and results.
-    \end{itemize}
-\end{frame}
-
-% --- 8. Metrics ---
-\section{Metrics}
-
-\begin{frame}{8. Metrics (Undersampling) for Evaluation}
-    \begin{itemize}
-        \item Description of the performance metrics used for evaluation.
-        \item Explanation of undersampling techniques applied to balance the dataset.
-        \item How these metrics drive insights for model optimization.
-    \end{itemize}
-\end{frame}
-
-% --- 9. Conclusions and Business Recommendations ---
-\section{Conclusions and Business Recommendations}
-
-\begin{frame}{9. Conclusions and Business Recommendations}
-    \begin{itemize}
-        \item Summary of key findings and performance analysis.
-        \item Discussion on the scalability and efficiency of the custom Apriori implementation.
-        \item Business recommendations based on the project outcomes.
-        \item Potential avenues for future work and improvements.
-    \end{itemize}
-\end{frame}
-
-% --- 10. References ---
-\section{References}
-
-\begin{frame}{10. References}
-    \begin{thebibliography}{9}
-        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami,
-        \\ ``Fast algorithms for mining association rules,'' \\
-        in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 
-        \\ 1994, pp. 487--499.
-        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, \\
-        Kaggle Competition, [Online]. Available:\\
-         \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}.\\
-         Accessed: Mar. 2025.
-        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \\
-        \textit{Data Mining: Concepts and Techniques}, 2nd ed.,
-        \\Morgan Kaufmann, 2006.
-    \end{thebibliography}
-\end{frame}
-
-\end{document}
-=======
-\documentclass{beamer}
-
-% Tema y colores
-\usetheme{Madrid}
-\usecolortheme{whale}
-
-% Paquetes básicos
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{url}
-\usepackage{tikz}                % Paquete para gráficos con TikZ
-\usetikzlibrary{arrows,positioning}
-
-% Información del título
-\title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm}
-\author{
-\begin{tabular}{c} 
-Fernanda Flores \\ 
-Kevin Arciniegas \\ 
-Giussepe Marrero
-\end{tabular}
+% Para diagramas de flujo
+% \node[fill=apriori-blue!20, text=apriori-blue] {\faSearch\ Escaneo};
+% \draw[->, apriori-green, thick] (nodo1) -- (nodo2);
+%Tablas de resultados
+% \rowcolors{1}{apriori-blue!10}{apriori-green!10}
+% Ecuaciones/Algoritmos
+% \begin{alertblock}{Fase de Combinación}
+% \textcolor{apriori-orange}{\textbf{Join Step}: $L_k \bowtie L_k$}
+% \end{alertblock}
+% Definir estilo del membrete
+\newtcolorbox{structurebox}{
+    enhanced,
+    colframe=apriori-white,
+    colback=white, % Fondo del cuadro
+    arc=3mm, % Radio de las esquinas
+    boxrule=1.5pt, % Grosor del borde
+    drop fuzzy shadow=apriori-white!50, % Opcional: sombra
+    before upper={\setbeamercolor{structure}{fg=black}}, % Color del texto
+    fonttitle=\bfseries\large,
+    left=4mm,
+    right=4mm,
+    top=2mm,
+    bottom=2mm
 }
-\institute{4Geeks Academy}
-\date{\today}
 
-\begin{document}
 
-% --- Cover Slide ---
-\begin{frame}
-    \titlepage
-\end{frame}
+% Definir estilo "block" para los nodos
+\tikzset{
+	block/.style={
+		rectangle, 
+		minimum width=2cm, 
+		minimum height=1cm, 
+		text centered, 
+		draw=black, 
+		fill=blue!20, 
+		rounded corners
+	}
+}
+\makeatletter
+\@namedef{ver@fontawesome5.sty}{}
+\makeatother
 
-% --- Table of Contents ---
-\begin{frame}{Outline}
-    \tableofcontents
-\end{frame}
-
-% --- Technical Considerations and Challenges ---
-\section{Technical Considerations and \texorpdfstring{$O(2^n)$}{O(2^n)}}
-
-\begin{frame}{1.Technical Considerations and Challenges}
-    \begin{itemize}
-        \item Mining association rules in large-scale transactional datasets incurs exponential complexity (\(O(2^n)\)).
-        \item The standard Apriori algorithm struggles with high-dimensional data due to combinatorial explosion.
-        \item Pre-filtering popular products helps reduce the candidate space, theoretically lowering the complexity to \(O(2^{n-3})\) (i.e., reducing cost by a factor of 8).
-    \end{itemize}
-\end{frame}
-
-% --- Cost Complexity Reduction Illustration ---
-\section{Cost Complexity Reduction}
-
-\begin{frame}{2.Cost Complexity Reduction}
-    \centering
-    \begin{tikzpicture}[node distance=5cm, auto, >=latex']
-        % Nodo original: Complejidad sin optimización
-        \node[draw, rectangle, rounded corners, text width=4cm, align=center, fill=red!10] (original) {\(O(2^n)\)\\Without Optimization};
-        % Nodo optimizado: Complejidad reducida
-        \node[draw, rectangle, rounded corners, text width=4cm, align=center, fill=green!10, right of=original] (optimized) {\(O(2^{n-3})\)\\\(=\frac{O(2^n)}{8}\)};
-        % Flecha que indica la reducción
-        \draw[->, very thick] (original) -- node[midway, above=8pt]{\small Reduction Factor 1/8} (optimized);
-    \end{tikzpicture}
-\end{frame}
+% --- Title Information ---
+\title{Potenciando el Marketing con Apriori}
+\subtitle{Transformando datos en estrategias efectivas}
+\author{
+    \begin{tabular}{c} 
+    Fernanda Flores \\ 
+    Kevin Arciniegas \\ 
+    Giussepe Marreros
+    \end{tabular}}
     
-
-% --- Objectives ---
-
-\section{Objectives}
-
-\begin{frame}{3.Objectives}
-    \textbf{General Objective:}
-    \begin{itemize}
-        \item Develop a functional Apriori algorithm capable of extracting frequent itemsets and generating association rules from transactional data.
-    \end{itemize}
-
-    \textbf{Specific Objectives:}
-    \begin{itemize}
-        \item Implement the modular stages of the Apriori algorithm: candidate generation, pruning, and support calculation.
-        \item Address challenges such as data imbalance and ensure compatibility with large-scale datasets.
-        \item Evaluate performance metrics such as execution time and memory usage under different dataset conditions.
-        \item Document the technical limitations and computational trade-offs encountered during development.
-    \end{itemize}
-\end{frame}
-
-% --- Description and Analysis of the Dataset ---
-\section{Description and Analysis of the Dataset}
-
-\section{Dataset Origin}
-
-\begin{frame}{4.Dataset Origin}
-    \begin{itemize}
-        \item Relational dataset of Instacart orders, consisting of:
-        \begin{itemize}
-            \item Over 3 million orders from 200,000+ users.
-            \item Each user has 4 to 100 orders.
-        \end{itemize}
-        \item Dataset is anonymized and publicly available.
-        \item \textbf{Source:} \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Dataset Characteristics}
-    \begin{itemize}
-        \item Focused on two key files for this analysis:
-        \begin{itemize}
-            \item \textbf{market\_basket\_dataset.csv}: Contains aggregated transactional data for market basket analysis.
-            \item \textbf{order\_products\_train.csv}: Includes product IDs and details of purchased items in the training set.
-        \end{itemize}
-        \item The dataset structure facilitates detailed exploration of customer purchase behaviors and product associations.
-    \end{itemize}
-\end{frame}
-
-
-% --- Algorithm Handling: Scope and Limitations ---
-\section{Algorithm Handling: Scope and Limitations}
-
-\begin{frame}{5.Algorithm Handling: Scope and Limitations}
-    \begin{itemize}
-        \item The project leverages a modular approach to implementing the Apriori algorithm, focusing on candidate generation, pruning, and support calculation.
-        \item While the algorithm builds upon existing foundations, the emphasis is on adapting it to handle scalability and efficiency challenges.
-        \item Modular functions (e.g., pruning based on the Apriori principle) allow for independent testing and debugging of each phase.
-        \item Limitations arise primarily from data sparsity, the computational cost of frequent itemset generation, and the efficiency of handling large transaction datasets.
-        \item Future optimization could involve incorporating parallelization techniques or integrating more advanced pruning strategies.
-    \end{itemize}
-\end{frame}
-
-% --- Project Development ---
-\section{Project Development}
-
-\begin{frame}{5.Project Development}
-    \textbf{Implementation of the Algorithm:}
-    \begin{itemize}
-        \item Step-by-step development of the Apriori algorithm.
-        \item Detailed explanation of candidate reduction mechanisms.
-    \end{itemize}
-    \vspace{0.5em}
-    \textbf{Performance Measurement and Benchmarking:}
-    \begin{itemize}
-        \item Define performance metrics (e.g., execution time, memory usage).
-        \item Comparative analysis against brute-force or alternative approaches.
-        \item Presentation of experimental results.
-    \end{itemize}
-\end{frame}
-
-% --- Metrics ---
-\section{Metrics}
-
-\begin{frame}{6.Metrics (Undersampling) for Evaluation}
-    \begin{itemize}
-        \item Overview of performance metrics used for evaluation.
-        \item Explanation of undersampling techniques employed to balance the dataset.
-        \item Discussion on how these metrics drive insights for model optimization.
-    \end{itemize}
-\end{frame}
-
-% --- Conclusions and Business Recommendations ---
-\section{7.Conclusions and Business Recommendations}
-
-\begin{frame}{Conclusions and Business Recommendations}
-    \begin{itemize}
-        \item Summarize key findings and performance analysis.
-        \item Discuss the scalability and efficiency of the optimized Apriori implementation.
-        \item Provide business recommendations based on the project results.
-        \item Suggest potential avenues for future work and improvements.
-    \end{itemize}
-\end{frame}
-
-% --- References ---
-\section{References}
-
-\begin{frame}{8.References}
-    \begin{thebibliography}{9}
-        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami, ``Fast algorithms for mining association rules,'' in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 1994, pp. 487--499.
-        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, Kaggle Competition, [Online]. Available: \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}. Accessed: Mar. 2025.
-        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \textit{Data Mining: Concepts and Techniques}, 2nd ed., Morgan Kaufmann, 2006.
-    \end{thebibliography}
-\end{frame}
-
-\end{document}
-
-
-\documentclass{beamer}
-
-% Theme and color settings
-\usetheme{Madrid}
-\usecolortheme{whale}
-
-% Packages 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{url}
-
-% Información del título
-\title{Machine Learning Final Project}
-\subtitle{Custom Implementation of the Apriori Algorithm}
-\author{
-\begin{tabular}{c} 
-Fernanda Flores \\ 
-Kevin Arciniegas \\ 
-Giussepe Marrero
-\end{tabular}
-}
 \institute{4Geeks Academy}
 \date{\today}
-
-\begin{document}
-
-% --- Cover Slide ---
+% --- Slide 1: Title Slide ---
 \begin{frame}
     \titlepage
 \end{frame}
 
-% --- Table of Contents ---
-\begin{frame}{Outline}
-    \tableofcontents
+% --- Slide 3: Impactful Introduction ---
+\begin{frame}{¿Sabías esto?}
+    % Cuadro de texto central en la parte superior con texto más pequeño
+    \begin{center}
+        \begin{tcolorbox}[
+            width=0.85\textwidth,
+            colback=apriori-blue!30,
+            colframe=apriori-blue,
+            coltext=black!95,
+            arc=5mm,
+            boxrule=1.5pt,
+            enhanced,
+            drop shadow={shadow xshift=2pt, shadow yshift=-2pt}
+        ]
+            \normalsize
+            \textbf{Un estudio de McKinsey revela que hasta el 35\% de las ventas en Amazon provienen de algoritmos de inteligencia artificial que recomiendan productos a los clientes.}
+        \end{tcolorbox}
+    \end{center}
+    
+    \vspace{0.3cm}
+    
+    % Imagen de Amazon centrada debajo del texto (reducida)
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{product-listing.jpg}
+    \end{center}
+    
+    \vspace{0.3cm}
+    
+    % Estadísticas en dos columnas debajo de la imagen (reducidas)
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                \node[scale=1.5, text=apriori-orange] {\Large\faChartLine};
+                \node[right=0.5cm, text=white!95, font=\small] {35\% de ingresos de Amazon};
+            \end{tikzpicture}
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.8]
+                \node[scale=1.5, text=apriori-green] {\Large\faUsers};
+                \node[right=0.5cm, text=white!95, font=\small] {Mayor satisfacción};
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+    
+    % Fuente en la parte inferior
+    \vspace{0.2cm}
+    \begin{center}
+        \tiny\textcolor{white!80}{Fuente: blog.blendee.com/es/recomendacion-de-productos-tras-la-estela-de-amazon/}
+    \end{center}
 \end{frame}
 
-% --- 1. Technical Framework Theory ---
-\section{Technical Framework Theory}
-
-\begin{frame}{1. Technical Framework Theory}
-    \begin{itemize}
-        \item \textbf{Association Rule Mining and Apriori Algorithm:} Identifies \\
-              patterns in datasets; Apriori discovers frequent itemsets to extract meaningful rules.
-        \item \textbf{Apriori Algorithm Functionality:} Uses a bottom-up approach, \\
-              starting with individual items and progressively combining them into larger\\
-              itemsets, filtering out infrequent ones based on a minimum support threshold.
-        \item \textbf{Computational Challenges:} Faces combinatorial explosion and high \\
-              resource demands when processing large datasets.
-    \end{itemize}
-\end{frame}
-
-% --- 2. Problem Statement ---
-\section{Problem Statement}
-
-\begin{frame}{2. Problem Statement}
-    \begin{itemize}
-        \item There is no efficient method to automatically discover high-quality \\
-              association rules in large-scale datasets.
-        \item Traditional brute-force approaches become unfeasible due to the combinatorial \\
-              explosion of candidate itemsets.
-        \item Existing algorithms, including Apriori, struggle with processing high-dimensional\\
-              data efficiently.
-        \item Optimizing the mining process by pre-filtering popular products and segmenting \\
-              orders temporally may improve efficiency and yield actionable insights.
-    \end{itemize}
-\end{frame}
-
-% --- 3. Project Justification ---
-\section{Project Justification}
-
-\begin{frame}{3. Project Justification}
-    \begin{itemize}
-        \item Current algorithms struggle with combinatorial problems and high resource \\
-              consumption.
-        \item Implementing Apriori from scratch helps understand its fundamental principles.
-        \item Pre-filtering popular products and segmenting orders can improve efficiency \\
-              in rule extraction.
-        \item The custom approach aims to reduce computational complexity and execution time.
-    \end{itemize}
-\end{frame}
-
-% --- 4. Objectives ---
-\section{Objectives}
-
-\begin{frame}{4. Objectives}
-    \textbf{General Objective:}
-    \begin{itemize}
-        \item Develop an optimized implementation of the Apriori algorithm to efficiently\\
-              extract actionable association rules and insights from large-scale datasets.
-    \end{itemize}
-
-    \textbf{Specific Objectives:}
-    \begin{itemize}
-        \item Pre-filter popular products to reduce redundant candidate itemsets and\\
-              computational overhead.
-        \item Segment transactions based on temporal features (e.g., day of the week or hour) \\
-              to uncover context-specific patterns.
-        \item Evaluate algorithm performance on large datasets to identify scalability \\
-              bottlenecks and potential improvements.
-        \item Extract actionable insights into customer purchasing behavior to inform and \\
-              enhance future predictive models.
-    \end{itemize}
-\end{frame}
-
-% --- 5. Description and Analysis of the Dataset ---
-\section{Description and Analysis of the Dataset}
-
-\begin{frame}{5.1 Dataset Origin}
-    \begin{itemize}
-        \item This dataset is a relational set of files describing customers' grocery \\
-              orders over time.
-        \item It contains over 3 million orders from more than 200,000 Instacart users,\\ 
-              with each user having between 4 and 100 orders.
-        \item Orders include the sequence of purchased products, order day, hour of placement,\\
-              and the relative time between orders.
-        \item The dataset is anonymized. For additional details, please refer to the \\
-              accompanying blog post.
-        \item \textbf{Access the dataset at:} 
-        \\\url{https://www.kaggle.com/competitions/instacart-market-basket-analysis/data}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{5.2 Dataset Characteristics}
-    \begin{itemize}
-        \item The dataset is organized into several CSV files, each with unique IDs \\
-              and self-explanatory variable names:
+% --- Slide 4: Project Purpose ---
+% Agregar al principio del documento, después de los otros paquetes
+\begin{frame}{Fuerza Bruta y Recursos Computacionales (I)}
+    % Cuadro azul con el desafío computacional
+    \begin{tcolorbox}[
+        colback=apriori-blue,
+        colframe=apriori-blue,
+        coltext=black,
+        arc=5mm,
+        boxrule=0pt,
+        width=0.9\textwidth,
+        title={\textbf{Desafío Computacional}},
+        coltitle=white,
+        fonttitle=\bfseries
+    ]
         \begin{itemize}
-            \item \textbf{aisles.csv}: Lists aisle IDs and names (e.g., "prepared soups salads").
-            \item \textbf{departments.csv}: Contains department IDs and names \\
-                  (e.g., "frozen", "bakery").
-            \item \textbf{order\_products\_\_prior.csv}: Details previous orders, including\\
-                  product IDs, add-to-cart order, and a 'reordered' flag.
-            \item \textbf{orders.csv}: Identifies order sets (prior, train, test) and provides\\
-                  temporal features like day of week and order hour.
-            \item \textbf{products.csv}: Lists product IDs, product names, and associated \\
-                  aisle and department IDs.
+            \item \textbf{Algunas implementaciones usan fuerza bruta para evaluar combinaciones.}
+            \item \textbf{Complejidad exponencial en el número de ítems.}
+            \item \textbf{Método muy costoso al aumentar $n$.}
         \end{itemize}
-        \item This organization enables detailed analysis of customer purchase behavior.
+    \end{tcolorbox}
+    
+    \vspace{0.7cm}
+    
+    % Fórmula de complejidad
+    \begin{center}
+        \textbf{Fórmula exacta de complejidad:}
+        
+        \vspace{0.4cm}
+        \large
+        Total de operaciones = $3^n - 2^{n+1} + 1$
+        
+        \vspace{0.7cm}
+        \textbf{Ejemplo:} Para 10 ítems, hay más de 57,000 operaciones.
+    \end{center}
+\end{frame}
+
+\begin{frame}{Fuerza Bruta y Recursos Computacionales (II)}
+    \begin{center}
+        \begin{tcolorbox}[
+            colback=orange!30,
+            colframe=orange,
+            coltext=black!95,
+            arc=5mm,
+            boxrule=1.5pt,
+            width=0.8\textwidth
+        ]
+            \centering
+            \textbf{Apriori optimiza este proceso} reduciendo drásticamente el espacio de búsqueda mediante el principio de anti-monotonía.
+        \end{tcolorbox}
+    \end{center}
+    
+    \vspace{0.7cm}
+    
+    \begin{itemize}
+        \item \textbf{Principio clave:} "Si un conjunto no es frecuente, ningún superconjunto lo será"
+        \item \textbf{Resultado:} Reducción exponencial del espacio de búsqueda
     \end{itemize}
 \end{frame}
 
-% --- 6. Algorithm Handling: Scope and Limitations ---
-\section{Algorithm Handling: Scope and Limitations}
+% O alternativamente, reemplazar el emoji por texto
+% Modificar estas diapositivas:
 
-\begin{frame}{6. Algorithm Handling: Scope and Limitations}
+% --- Slide 5: Contextualizing the Problem ---
+\section{Market Basket Analysis}
+\begin{frame}{Market Basket Analysis: ¿Qué es?}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Definición:}
+            \begin{tcolorbox}[
+                colback=apriori-blue!30,
+                colframe=apriori-blue,
+                coltext=black!95,
+                arc=3mm,
+                boxrule=1.5pt
+            ]
+                Técnica usada en retail y comercio electrónico para identificar asociaciones de productos que los clientes suelen comprar juntos.
+            \end{tcolorbox}
+            
+            \vspace{0.5cm}
+            \textbf{Pregunta clave:}
+            \begin{itemize}
+                \item \textcolor{white!90}{¿Qué patrones de compra están escondidos en los datos?}
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.48\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.85] % Reducido el tamaño para mejor ajuste
+                % Canasta de compras estilizada con mejor contraste - movida hacia la izquierda
+                \fill[apriori-orange!40, rounded corners] (-2.2,-0.3) rectangle (1.4,0.8);
+                
+                % Productos con iconos más visibles - ajustados a la nueva posición
+                \node[text=white!95, scale=1.2] at (-1.4,0.3) {\Large\faBreadSlice};
+                \node[text=white!95, scale=1.2] at (-0.4,0.3) {\Large\faCoffee};
+                \node[text=white!95, scale=1.2] at (0.6,0.3) {\Large\faAppleAlt};
+                
+                % Flecha y producto recomendado con mejor contraste - acortada
+                \draw[->, thick, apriori-green, line width=2pt] (1.6,0.3) -- (2.2,0.3);
+                
+                % Reemplazo del icono de leche - movido hacia la izquierda
+                \node[draw=apriori-green, line width=1.3pt, fill=apriori-green!50, text=white!95, 
+                      rounded corners, minimum width=1.2cm, minimum height=1cm] at (3.0,0.3) {
+                    \begin{tabular}{c}
+                    \Large\faGlassWhiskey \\
+                    \scriptsize\textbf{LECHE}
+                    \end{tabular}
+                };
+            \end{tikzpicture}
+            
+            \vspace{0.8cm}
+            \begin{tcolorbox}[
+                colback=apriori-orange!40,
+                colframe=apriori-orange,
+                coltext=black!95,
+                arc=3mm,
+                boxrule=1.5pt
+            ]
+                \centering
+                \textbf{Ejemplo:} "Si un cliente compra pan y café,\\
+                ¿también comprará leche?"
+            \end{tcolorbox}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{¿Qué es una Regla en Apriori?}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \textbf{Definición:}\\
+            Una regla de asociación es una implicación de la forma:
+            \begin{center}
+                \colorbox{apriori-blue!90}{\textbf{X $\rightarrow$ Y}}
+            \end{center}
+            donde X e Y son conjuntos de ítems (itemsets) que no se solapan.
+            
+            \vspace{0.3cm}
+            \textbf{Interpretación:}\\
+            "Si un cliente compra los productos del conjunto X, entonces es probable que también compre los productos del conjunto Y"
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \begin{tcolorbox}[
+                colback=apriori-orange!10,
+                colframe=apriori-orange,
+                title=\textbf{Ejemplo Real},
+                fonttitle=\bfseries
+            ]
+                \centering
+                \includegraphics[width=0.3\textwidth]{pan.png} \includegraphics[width=0.3\textwidth]{mante.png}
+                $\Rightarrow$
+                \includegraphics[width=0.3\textwidth]{merme.png}
+                
+                \vspace{0.2cm}
+                \small
+                \textbf{Soporte:} 15\% de transacciones\\
+                \textbf{Confianza:} 68\% de clientes\\
+                \textbf{Lift:} 3.2 (asociación fuerte)
+            \end{tcolorbox}
+            
+            \small
+            \textbf{Acción:} Colocar mermelada cerca de pan y mantequilla aumentaría ventas en un 23\%.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Algoritmo Apriori ¿Cómo se define?}
+    \textbf{Es un método inteligente para descubrir patrones ocultos en grandes conjuntos de transacciones, como las compras de un supermercado o las relaciones de los productos en tiendas online.}
+    
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.33\textwidth}
+            \begin{tcolorbox}[colback=apriori-blue!20, colframe=apriori-blue, title=\textbf{Soporte}]
+                \centering
+                \small
+                \textbf{¿Qué tan común?}\\
+                \vspace{0.2cm}
+                $\frac{\text{Transacciones con }X\text{ y }Y}{\text{Total de transacciones}}$
+            \end{tcolorbox}
+        \end{column}
+        
+        \begin{column}{0.33\textwidth}
+            \begin{tcolorbox}[colback=apriori-orange!20, colframe=apriori-orange, title=\textbf{Confianza}]
+                \centering
+                \small
+                \textbf{¿Qué tan seguro?}\\
+                \vspace{0.2cm}
+                $\frac{\text{Soporte}(X \cup Y)}{\text{Soporte}(X)}$
+            \end{tcolorbox}
+        \end{column}
+        
+        \begin{column}{0.33\textwidth}
+            \begin{tcolorbox}[colback=apriori-green!20, colframe=apriori-green, title=\textbf{Lift}]
+                \centering
+                \small
+                \textbf{¿Qué tan fuerte?}\\
+                \vspace{0.2cm}
+                $\frac{\text{Confianza}(X \rightarrow Y)}{\text{Soporte}(Y)}$
+            \end{tcolorbox}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{¿Cómo Funciona el Algoritmo?}
+    \textbf{Pasos Clave de Apriori:}  
     \begin{itemize}
-        \item Detailed explanation of the Apriori algorithm and its computational cost.
-        \item Implementation approach: building the algorithm from scratch.
-        \item Pre-filtering popular products and segmenting orders help reduce \\
-              redundant candidate itemsets.
-        \item Limitations include data size, performance constraints, and combinatorial\\
-              challenges.
+        \item \textbf{Escaneo de transacciones:} Identifica ítems frecuentes de tamaño 1 (leche).
+        \item \textbf{Generación de combinaciones:} Busca pares (leche + pan), luego tríos (leche + pan + huevos).
+        \item \textbf{Filtrado inteligente:} Descarta combinaciones poco frecuentes usando el soporte mínimo
+        \item \textbf{Generación de reglas:} Deriva asociaciones accionables.
     \end{itemize}
 \end{frame}
 
-% --- 7. Project Development ---
-\section{Project Development}
+\begin{frame}{Pseudocódigo del Algoritmo Apriori}
+    \centering
+    \begin{tcolorbox}[
+        width=0.95\textwidth,
+        colback=blue!10!black,
+        colframe=blue!50!black,
+        coltext=white,
+        arc=0mm,
+        boxrule=0.5mm,
+        title={\textbf{Algoritmo Apriori}},
+        fonttitle=\small\bfseries,
+        fontsize=\footnotesize
+    ]
+    \textbf{Entrada:} Base de datos $D$ de Instacart, soporte mínimo $min\_sup$\\
+    \textbf{Salida:} Conjunto de itemsets frecuentes $L$\\[0.1em]
+    
+    $L_1 \leftarrow$ \{itemsets frecuentes de 1 elemento\}\\
+    $k \leftarrow 2$\\
+    \textbf{Repetir:}\\
+    \hspace{0.5em}$C_k \leftarrow$ generar\_candidatos($L_{k-1}$)\\
+    \hspace{0.5em}\textbf{Para} transacciones en $D$:\\
+    \hspace{1em}\textbf{Para} candidatos en $C_k$:\\
+    \hspace{1.5em}\textbf{Si} candidato está en transacción: contar candidato\\
+    \hspace{0.5em}$L_k \leftarrow$ candidatos con soporte $\geq min\_sup$\\
+    \hspace{0.5em}$k \leftarrow k + 1$\\
+    \textbf{Hasta que} $L_{k-1}$ sea vacío\\
+    \textbf{Retornar} todos los conjuntos $L_k$
+    \end{tcolorbox}
+\end{frame}
 
-\begin{frame}{7. Project Development}
-    \textbf{Implementation of the Algorithm:}
-    \begin{itemize}
-        \item Step-by-step development of the Apriori algorithm.
-        \item Explanation of mechanisms chosen for feature extraction.
-    \end{itemize}
+\begin{frame}{Generación de Reglas: Las Matemáticas Detrás}
+    \centering
+    \begin{tcolorbox}[
+        width=0.9\textwidth,
+        colback=blue!10!black,
+        colframe=blue!50!black,
+        coltext=white,
+        arc=0mm,
+        boxrule=0.5mm,
+        title={\textbf{Ecuaciones Clave}}
+    ]
+    \begin{align*}
+    \text{Regla:} & \quad X \rightarrow Y \\[0.5em]
+    \text{Soporte}(X \rightarrow Y) &= \frac{\text{Transacciones con }X\text{ y }Y}{\text{Total de transacciones}} \\[0.5em]
+    \text{Confianza}(X \rightarrow Y) &= \frac{\text{Soporte}(X \cup Y)}{\text{Soporte}(X)} \\[0.5em]
+    \text{Lift}(X \rightarrow Y) &= \frac{\text{Confianza}(X \rightarrow Y)}{\text{Soporte}(Y)}
+    \end{align*}
+    \end{tcolorbox}
+    
     \vspace{0.5em}
-    \textbf{Performance Measurement and Benchmarking:}
+    \small
+    \textbf{Ejemplo:} Si el 5\% de transacciones contienen café y galletas, el 7\% contienen café, y el 8\% contienen galletas:
     \begin{itemize}
-        \item Define how performance is measured (execution time, memory usage, etc.).
-        \item Comparative analysis: benchmark against brute-force or alternative approaches.
-        \item Showcase experiments and results.
+        \item \textbf{Confianza} (Café → Galletas) = 5\%/7\% = 71\%
+        \item \textbf{Lift} = 71\%/8\% = 8.9 (¡Fuerte asociación!)
     \end{itemize}
 \end{frame}
 
-% --- 8. Metrics ---
-\section{Metrics}
 
-\begin{frame}{8. Metrics (Undersampling) for Evaluation}
-    \begin{itemize}
-        \item Description of the performance metrics used for evaluation.
-        \item Explanation of undersampling techniques applied to balance the dataset.
-        \item How these metrics drive insights for model optimization.
-    \end{itemize}
+
+\section{Implementación}
+\begin{frame}{Enfoque Metodológico (I): Caso de Estudio}
+    \begin{center}
+        \begin{tcolorbox}[
+            colback=apriori-orange!10,
+            colframe=apriori-orange,
+            width=0.9\textwidth,
+            boxrule=1.5pt,
+            arc=5mm,
+            title={\textbf{Caso de Estudio: Base de datos de Instacart}},
+            fonttitle=\bfseries,
+            coltitle=black!90
+        ]
+            \begin{itemize}
+                \item \textcolor{black!100}{\textbf{Volumen:} 3 millones de órdenes}
+                \item \textcolor{black!100}{\textbf{Usuarios:} Más de 200,000 clientes}
+                \item \textcolor{black!100}{\textbf{Productos:} 50,000 productos únicos}
+                \item \textcolor{black!100}{\textbf{Categorías:} 21 departamentos y 134 pasillos}
+            \end{itemize}
+        \end{tcolorbox}
+    \end{center}
+    
+    \vspace{0.5cm}
+    \textbf{Desafío:} Identificar patrones de compra y asociaciones entre productos para optimizar recomendaciones y estrategias de marketing en tiempo real.
 \end{frame}
 
-% --- 9. Conclusions and Business Recommendations ---
-\section{Conclusions and Business Recommendations}
-
-\begin{frame}{9. Conclusions and Business Recommendations}
-    \begin{itemize}
-        \item Summary of key findings and performance analysis.
-        \item Discussion on the scalability and efficiency of the custom Apriori implementation.
-        \item Business recommendations based on the project outcomes.
-        \item Potential avenues for future work and improvements.
-    \end{itemize}
+\begin{frame}{Enfoque Metodológico (II): Flujo de Trabajo}
+    \begin{columns}[T]
+        \begin{column}{0.45\textwidth}
+            \begin{tcolorbox}[
+                colback=apriori-blue!10,
+                colframe=apriori-blue,
+                title=\textbf{Flujo de Trabajo},
+                fonttitle=\bfseries,
+                coltitle=black!90
+            ]
+                \begin{enumerate}
+                    \item \textcolor{black!100}{\textbf{Python:} Preprocesamiento de datos masivos}
+                    \item \textcolor{black!90}{\textbf{R:} Aplicación del algoritmo Apriori}
+                    \item \textcolor{black!90}{\textbf{Análisis:} Cálculo de métricas clave}
+                    \item \textcolor{black!90}{\textbf{Visualización:} Dashboards interactivos}
+                \end{enumerate}
+            \end{tcolorbox}
+        \end{column}
+        
+        \begin{column}{0.55\textwidth}
+            \centering
+            \begin{tikzpicture}[
+                node distance=1.2cm,
+                process/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=white, fill=apriori-blue!70},
+                arrow/.style={thick, ->, >=stealth, draw=white}
+            ]
+                \node (data) [process] {\faDatabase\ Datos Crudos};
+                \node (python) [process, below of=data] {\faPython\ Limpieza (Python)};
+                \node (r) [process, below of=python] {\faRProject\ Apriori (R)};
+                \node (metrics) [process, below of=r] {\faChartBar\ Métricas};
+                
+                \draw [arrow] (data) -- (python);
+                \draw [arrow] (python) -- (r);
+                \draw [arrow] (r) -- (metrics);
+                
+                \node[right=0.5cm of metrics, text=white, align=left] {
+                    \textbf{Lift:} 4.2\\
+                    \textbf{Confianza:} 78\%
+                };
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.3cm}
+    \centering
+    \textbf{Ventaja:} Combinamos la eficiencia de Python para el procesamiento de datos con la precisión estadística de R para el análisis de asociaciones.
 \end{frame}
 
-% --- 10. References ---
-\section{References}
-
-\begin{frame}{10. References}
-    \begin{thebibliography}{9}
-        \bibitem{agrawal94} R. Agrawal, T. Imielinski, and A. Swami,
-        \\ ``Fast algorithms for mining association rules,'' \\
-        in \textit{Proc. 20th Int. Conf. Very Large Data Bases (VLDB)}, 
-        \\ 1994, pp. 487--499.
-        \bibitem{kaggle_instacart} Instacart Market Basket Analysis, \\
-        Kaggle Competition, [Online]. Available:\\
-         \url{https://www.kaggle.com/c/instacart-market-basket-analysis/data}.\\
-         Accessed: Mar. 2025.
-        \bibitem{han06} J. Han, M. Kamber, and J. Pei, \\
-        \textit{Data Mining: Concepts and Techniques}, 2nd ed.,
-        \\Morgan Kaufmann, 2006.
-    \end{thebibliography}
+\begin{frame}{Ejemplos Visuales}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \textbf{Gráficas interactivas:}  
+            \begin{itemize}
+                \item Scatter plot que muestra lift y confianza.
+                \item Ejemplo: "72\% de los clientes que compran café, también compran galletas."
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.6\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.7]
+                \begin{axis}[
+                    title={Reglas de Asociación},
+                    xlabel={Confianza (\%)},
+                    ylabel={Lift},
+                    xmin=35, xmax=95,
+                    ymin=1, ymax=4.5,
+                    grid=both,
+                    width=7cm,
+                    height=5.5cm
+                ]
+                
+                % Puntos para las reglas
+                \addplot[
+                    only marks,
+                    mark=*,
+                    mark size=3pt,
+                    color=red
+                ] coordinates {
+                    (72, 3.2)
+                    (65, 2.8)
+                    (45, 1.5)
+                    (85, 4.2)
+                    (55, 2.1)
+                };
+                
+                % Etiquetas ajustadas para mejor visibilidad
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:72,3.2) {Café→Galletas};
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:65,2.8) {Pan→Leche};
+                \node[anchor=south west, font=\tiny, text=white] at (axis cs:45,1.5) {Huevos→Tocino};
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:75,4.2) {Chips→Refresco};
+                \node[anchor=west, font=\tiny, text=white] at (axis cs:55,2.1) {Pasta→Salsa};
+                
+                \end{axis}
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
 \end{frame}
+
+\section{Resultados}
+% Diapositiva para la visualización de Productos Recomendados
+\begin{frame}{Productos Recomendados Basados en Transacción}
+    \centering
+    % Si es necesario ajustar márgenes de la imagen, puedes utilizar la opción trim.
+    \includegraphics[width=0.8\linewidth, trim=0 0 0 0, clip]{graph_recomendados.png}
+    \vspace{0.5cm}
+    % Botón interactivo que vincula a la versión HTML alojada en GitHub Pages.
+    \href{https://ffloresm30.github.io/Visualizaciones-apriori/graph_recomendados.html}{\beamergotobutton{Ver gráfico interactivo}}
+\end{frame}
+% Diapositiva para la Red Interactiva
+\begin{frame}{Red Interactiva de Productos Comprados y Recomendados}
+    \centering
+    \includegraphics[width=0.8\linewidth, trim=0 0 0 0, clip]{graph_red.png}
+    \vspace{0.5cm}
+    \href{https://ffloresm30.github.io/Visualizaciones-apriori/graph_red.html}{\beamergotobutton{Ver red interactiva}}
+\end{frame}
+
+\section{Conclusión}
+\begin{frame}{Nuestra Promesa: Decisiones Basadas en Datos}
+    \centering
+    \Huge
+    \textbf{De transacciones a estrategias.}
+    
+    \vspace{1em}
+    \Large
+    
+    
+    \vspace{1.5em}
+    \begin{tikzpicture}
+        \node[fill=apriori-blue!70, text=white, rounded corners, minimum width=3cm, minimum height=1cm] at (0,0) {\textbf{Innovación}};
+        \node[fill=apriori-orange!70, text=white, rounded corners, minimum width=3cm, minimum height=1cm] at (4,0) {\textbf{Precisión}};
+        \node[fill=apriori-green!70, text=white, rounded corners, minimum width=3cm, minimum height=1cm] at (8,0) {\textbf{Resultados}};
+    \end{tikzpicture}
+    
+    \vspace{1.5em}
+    \large
+    \textit{¡Gracias por su atención!}
+\end{frame}
+
 
 \end{document}
->>>>>>> 1622b5026961fad676087de8b1fa51235e5faf29
