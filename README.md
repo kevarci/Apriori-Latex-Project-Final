@@ -41,6 +41,29 @@ Este proyecto implementa un **sistema de recomendaciones basado en el algoritmo 
 
 ### Instalación
 
+#### Opción 1: Inicio Rápido con Scripts (Recomendado)
+
+**Linux/macOS:**
+```bash
+git clone https://github.com/kevarci/Apriori-Latex-Project-Final.git
+cd Apriori-Latex-Project-Final
+./run_app.sh
+```
+
+**Windows:**
+```bash
+git clone https://github.com/kevarci/Apriori-Latex-Project-Final.git
+cd Apriori-Latex-Project-Final
+run_app.bat
+```
+
+El script automáticamente:
+- ✅ Crea el entorno virtual
+- ✅ Instala las dependencias
+- ✅ Inicia la aplicación Streamlit
+
+#### Opción 2: Instalación Manual
+
 1. **Clonar el repositorio:**
    ```bash
    git clone https://github.com/kevarci/Apriori-Latex-Project-Final.git
@@ -72,6 +95,8 @@ Este proyecto implementa un **sistema de recomendaciones basado en el algoritmo 
 5. **Ejecutar la aplicación Streamlit:**
    ```bash
    streamlit run app.py
+   # o usar el Makefile:
+   make run
    ```
 
 La aplicación se abrirá automáticamente en tu navegador en `http://localhost:8501`
@@ -213,26 +238,56 @@ Las visualizaciones generadas permiten identificar clusters de productos que se 
 
 ## 🛠️ Desarrollo
 
+### Comandos Rápidos con Makefile
+
+El proyecto incluye un `Makefile` con comandos útiles para desarrollo:
+
+```bash
+make help       # Mostrar todos los comandos disponibles
+make install    # Instalar dependencias
+make test       # Ejecutar tests
+make coverage   # Ejecutar tests con reporte de cobertura
+make lint       # Verificar calidad del código
+make format     # Formatear código automáticamente
+make clean      # Limpiar archivos temporales
+make run        # Ejecutar la aplicación Streamlit
+```
+
 ### Instalación de Dependencias de Desarrollo
 
 ```bash
+make install-dev
+# o manualmente:
 pip install -r requirements.txt
+pip install black isort flake8 pytest pytest-cov
 ```
 
-### Ejecutar Tests (si están disponibles)
+### Ejecutar Tests
 
 ```bash
-pytest tests/
+make test
+# o manualmente:
+pytest tests/ -v
+
+# Con cobertura:
+make coverage
+# o manualmente:
+pytest tests/ -v --cov=utils --cov-report=html
 ```
 
 ### Linting y Formato de Código
 
 ```bash
-# Formatear código con black
-black utils/ app.py
+# Formatear código
+make format
 
-# Linting con flake8
-flake8 utils/ app.py
+# Verificar linting
+make lint
+
+# o manualmente:
+black utils/ tests/ app.py config.py
+isort utils/ tests/ app.py config.py
+flake8 utils/ tests/ app.py config.py --max-line-length=100
 ```
 
 ---
