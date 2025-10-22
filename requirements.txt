@@ -26,3 +26,7 @@ SQLAlchemy==2.0.37
 
 # Python environment
 python-dotenv==1.0.1
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
