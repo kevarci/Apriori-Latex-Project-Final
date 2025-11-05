@@ -1,246 +1,246 @@
-# Contributing to Apriori Recommendation System
+# Contribuir al Sistema de Recomendaciones con Apriori
 
-Thank you for your interest in contributing to the Apriori Recommendation System! This document provides guidelines for contributing to this project.
+¡Gracias por tu interés en contribuir al Sistema de Recomendaciones con Apriori! Este documento proporciona pautas para contribuir a este proyecto.
 
-## 📋 Table of Contents
+## 📋 Tabla de Contenidos
 
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [How to Contribute](#how-to-contribute)
-- [Coding Standards](#coding-standards)
-- [Testing](#testing)
-- [Pull Request Process](#pull-request-process)
+- [Código de Conducta](#código-de-conducta)
+- [Primeros Pasos](#primeros-pasos)
+- [Configuración del Entorno de Desarrollo](#configuración-del-entorno-de-desarrollo)
+- [Cómo Contribuir](#cómo-contribuir)
+- [Estándares de Código](#estándares-de-código)
+- [Pruebas](#pruebas)
+- [Proceso de Pull Request](#proceso-de-pull-request)
 
-## 🤝 Code of Conduct
+## 🤝 Código de Conducta
 
-This project adheres to a code of conduct that all contributors are expected to follow. Please be respectful and constructive in your interactions.
+Este proyecto se adhiere a un código de conducta que todos los contribuyentes deben seguir. Por favor, sé respetuoso y constructivo en tus interacciones.
 
-## 🚀 Getting Started
+## 🚀 Primeros Pasos
 
-1. **Fork the repository** on GitHub
-2. **Clone your fork** locally:
+1. **Haz un fork del repositorio** en GitHub
+2. **Clona tu fork** localmente:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/Apriori-Latex-Project-Final.git
+   git clone https://github.com/TU-USUARIO/Apriori-Latex-Project-Final.git
    cd Apriori-Latex-Project-Final
    ```
 
-3. **Add the upstream repository** as a remote:
+3. **Añade el repositorio upstream** como remoto:
    ```bash
    git remote add upstream https://github.com/kevarci/Apriori-Latex-Project-Final.git
    ```
 
-## 💻 Development Setup
+## 💻 Configuración del Entorno de Desarrollo
 
-1. **Create a virtual environment:**
+1. **Crea un entorno virtual:**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  # En Windows: venv\Scripts\activate
    ```
 
-2. **Install dependencies:**
+2. **Instala las dependencias:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Install development dependencies:**
+3. **Instala las dependencias de desarrollo:**
    ```bash
    pip install black isort flake8 pytest pytest-cov
    ```
 
-4. **Set up pre-commit hooks (optional but recommended):**
+4. **Configura pre-commit hooks (opcional pero recomendado):**
    ```bash
    pip install pre-commit
    pre-commit install
    ```
 
-## 🔧 How to Contribute
+## 🔧 Cómo Contribuir
 
-### Reporting Bugs
+### Reportar Errores
 
-If you find a bug, please create an issue with:
-- A clear, descriptive title
-- Detailed steps to reproduce the bug
-- Expected vs actual behavior
-- Your environment (OS, Python version, etc.)
-- Screenshots if applicable
+Si encuentras un error, por favor crea un issue con:
+- Un título claro y descriptivo
+- Pasos detallados para reproducir el error
+- Comportamiento esperado vs comportamiento real
+- Tu entorno (SO, versión de Python, etc.)
+- Capturas de pantalla si aplica
 
-### Suggesting Enhancements
+### Sugerir Mejoras
 
-For feature requests:
-- Use a clear, descriptive title
-- Provide a detailed description of the proposed feature
-- Explain why this feature would be useful
-- Include examples if possible
+Para solicitudes de nuevas funcionalidades:
+- Usa un título claro y descriptivo
+- Proporciona una descripción detallada de la funcionalidad propuesta
+- Explica por qué esta funcionalidad sería útil
+- Incluye ejemplos si es posible
 
-### Contributing Code
+### Contribuir con Código
 
-1. **Create a new branch** for your feature or bugfix:
+1. **Crea una nueva rama** para tu funcionalidad o corrección:
    ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/your-bug-fix
+   git checkout -b feature/nombre-de-tu-funcionalidad
+   # o
+   git checkout -b fix/tu-correccion-de-error
    ```
 
-2. **Make your changes** following the coding standards below
+2. **Realiza tus cambios** siguiendo los estándares de código a continuación
 
-3. **Write or update tests** for your changes
+3. **Escribe o actualiza las pruebas** para tus cambios
 
-4. **Run tests** to ensure everything passes:
+4. **Ejecuta las pruebas** para asegurarte de que todo pase:
    ```bash
    pytest tests/ -v
    ```
 
-5. **Commit your changes** with a descriptive commit message:
+5. **Haz commit de tus cambios** con un mensaje descriptivo:
    ```bash
    git add .
-   git commit -m "Add feature: description of your changes"
+   git commit -m "Agregar funcionalidad: descripción de tus cambios"
    ```
 
-6. **Push to your fork:**
+6. **Haz push a tu fork:**
    ```bash
-   git push origin feature/your-feature-name
+   git push origin feature/nombre-de-tu-funcionalidad
    ```
 
-7. **Create a Pull Request** on GitHub
+7. **Crea un Pull Request** en GitHub
 
-## 📝 Coding Standards
+## 📝 Estándares de Código
 
-### Python Style Guide
+### Guía de Estilo de Python
 
-We follow PEP 8 style guide with some modifications:
+Seguimos la guía de estilo PEP 8 con algunas modificaciones:
 
-- **Line length:** Maximum 100 characters
-- **Indentation:** 4 spaces (no tabs)
-- **Imports:** Organize imports using `isort`
-- **Formatting:** Use `black` for automatic formatting
+- **Longitud de línea:** Máximo 100 caracteres
+- **Indentación:** 4 espacios (sin tabulaciones)
+- **Imports:** Organiza los imports usando `isort`
+- **Formateo:** Usa `black` para formateo automático
 
-### Code Formatting
+### Formateo de Código
 
-Format your code before committing:
+Formatea tu código antes de hacer commit:
 
 ```bash
-# Format code with black
+# Formatear código con black
 black utils/ tests/ app.py config.py
 
-# Sort imports with isort
+# Ordenar imports con isort
 isort utils/ tests/ app.py config.py
 
-# Check with flake8
+# Verificar con flake8
 flake8 utils/ tests/ app.py config.py --max-line-length=100
 ```
 
-### Documentation
+### Documentación
 
-- Add docstrings to all functions, classes, and modules
-- Use Google-style docstrings
-- Include type hints where applicable
-- Update README.md if adding new features
+- Añade docstrings a todas las funciones, clases y módulos
+- Usa docstrings estilo Google
+- Incluye type hints cuando sea aplicable
+- Actualiza README.md si añades nuevas funcionalidades
 
-Example docstring:
+Ejemplo de docstring:
 
 ```python
-def function_name(param1, param2):
+def nombre_funcion(param1, param2):
     """
-    Brief description of the function.
+    Breve descripción de la función.
     
     Args:
-        param1 (type): Description of param1
-        param2 (type): Description of param2
+        param1 (tipo): Descripción de param1
+        param2 (tipo): Descripción de param2
         
     Returns:
-        type: Description of return value
+        tipo: Descripción del valor de retorno
         
     Raises:
-        ExceptionType: Description of when this exception is raised
+        TipoExcepcion: Descripción de cuándo se lanza esta excepción
     """
     pass
 ```
 
-## 🧪 Testing
+## 🧪 Pruebas
 
-### Writing Tests
+### Escribir Pruebas
 
-- Write tests for all new features and bug fixes
-- Place tests in the `tests/` directory
-- Use descriptive test names that explain what is being tested
-- Follow the Arrange-Act-Assert pattern
+- Escribe pruebas para todas las nuevas funcionalidades y correcciones de errores
+- Coloca las pruebas en el directorio `tests/`
+- Usa nombres descriptivos que expliquen qué se está probando
+- Sigue el patrón Arrange-Act-Assert (Preparar-Actuar-Verificar)
 
-Example test:
+Ejemplo de prueba:
 
 ```python
-def test_function_name():
-    """Test that function_name does what it should."""
-    # Arrange
-    input_data = create_test_data()
+def test_nombre_funcion():
+    """Prueba que nombre_funcion hace lo que debe hacer."""
+    # Preparar (Arrange)
+    datos_entrada = crear_datos_prueba()
     
-    # Act
-    result = function_name(input_data)
+    # Actuar (Act)
+    resultado = nombre_funcion(datos_entrada)
     
-    # Assert
-    assert result == expected_result
+    # Verificar (Assert)
+    assert resultado == resultado_esperado
 ```
 
-### Running Tests
+### Ejecutar Pruebas
 
 ```bash
-# Run all tests
+# Ejecutar todas las pruebas
 pytest tests/ -v
 
-# Run tests with coverage
+# Ejecutar pruebas con cobertura
 pytest tests/ -v --cov=utils --cov-report=html
 
-# Run specific test file
+# Ejecutar archivo de prueba específico
 pytest tests/test_data_loader.py -v
 
-# Run specific test
-pytest tests/test_data_loader.py::TestDataLoader::test_function_name -v
+# Ejecutar prueba específica
+pytest tests/test_data_loader.py::TestDataLoader::test_nombre_funcion -v
 ```
 
-## 🔄 Pull Request Process
+## 🔄 Proceso de Pull Request
 
-1. **Update documentation** if needed
-2. **Add tests** for new functionality
-3. **Ensure all tests pass** locally
-4. **Update CHANGELOG.md** with your changes
-5. **Create a Pull Request** with:
-   - Clear title describing the changes
-   - Detailed description of what and why
-   - Reference to related issues (e.g., "Fixes #123")
-   - Screenshots for UI changes
+1. **Actualiza la documentación** si es necesario
+2. **Añade pruebas** para nuevas funcionalidades
+3. **Asegúrate de que todas las pruebas pasen** localmente
+4. **Actualiza CHANGELOG.md** con tus cambios
+5. **Crea un Pull Request** con:
+   - Título claro que describa los cambios
+   - Descripción detallada del qué y el por qué
+   - Referencia a issues relacionados (ej., "Fixes #123")
+   - Capturas de pantalla para cambios en la UI
 
-### PR Review Process
+### Proceso de Revisión de PR
 
-- At least one maintainer must review and approve
-- All CI checks must pass
-- Code must meet quality standards
-- Documentation must be updated
+- Al menos un mantenedor debe revisar y aprobar
+- Todas las verificaciones de CI deben pasar
+- El código debe cumplir con los estándares de calidad
+- La documentación debe estar actualizada
 
-### After Your PR is Merged
+### Después de que tu PR sea Fusionado
 
-1. **Delete your branch** (if using GitHub, this is automatic)
-2. **Update your local repository:**
+1. **Elimina tu rama** (si usas GitHub, esto es automático)
+2. **Actualiza tu repositorio local:**
    ```bash
    git checkout main
    git pull upstream main
    ```
 
-## 📞 Getting Help
+## 📞 Obtener Ayuda
 
-If you need help:
-- Check existing issues and discussions
-- Ask questions in issue comments
-- Contact the maintainers
+Si necesitas ayuda:
+- Revisa los issues y discusiones existentes
+- Haz preguntas en los comentarios de los issues
+- Contacta a los mantenedores
 
-## 🙏 Thank You!
+## 🙏 ¡Gracias!
 
-Your contributions make this project better. Thank you for taking the time to contribute!
+Tus contribuciones hacen que este proyecto sea mejor. ¡Gracias por tomarte el tiempo para contribuir!
 
 ---
 
-**Maintainers:**
+**Mantenedores:**
 - Fernanda Flores
 - Kevin Arciniegas
 - Giussepe Marreros
 
-**Institution:** 4Geeks Academy
+**Institución:** 4Geeks Academy
