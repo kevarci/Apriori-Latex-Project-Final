@@ -34,11 +34,31 @@
 
 # Configuración de editores
 .vscode/
+.idea/
 *.swp
 *.bak
 *~
 out/
 output/
 
-# Archivos de respaldo
-*.bak0
+# --- Python & Data Science ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.ipynb_checkpoints/
+
+# Data (Omitir si son muy pesados para GitHub)
+# data/raw/
+# data/processed/
+# data/results/
+*.csv
+*.parquet
+*.h5
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+temp_rules.csv
